@@ -12,6 +12,28 @@ namespace App\Controller;
  */
 class GaUsuarioController extends AppController
 {
+
+    public function login()
+    {
+        $result = $this->Authentication->getResult();
+        // If the user is logged in send them away.
+        if ($result->isValid()) {
+            $target = $this->Authentication->getLoginRedirect() ?? '/home';
+            return $this->redirect($target);
+        }
+        if ($this->request->is('post') && !$result->isValid()) {
+            echo print_r($result);
+            $this->Flash->error('Usuário ou senha incorreta');
+        }
+    }
+
+    public function logout()
+    {
+        $this->Authentication->logout();
+        return $this->redirect(['controller' => 'GaUsuario', 'action' => 'login']);
+    }
+
+
     /**
      * Index method
      *
@@ -51,11 +73,11 @@ class GaUsuarioController extends AppController
         if ($this->request->is('post')) {
             $gaUsuario = $this->GaUsuario->patchEntity($gaUsuario, $this->request->getData());
             if ($this->GaUsuario->save($gaUsuario)) {
-                $this->Flash->success(__('The ga usuario has been saved.'));
+                $this->Flash->success(__('Usuário salvo com sucesso'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ga usuario could not be saved. Please, try again.'));
+            $this->Flash->error(__('O usuário não pode ser salvo. Por favor tente novamente!'));
         }
         $this->set(compact('gaUsuario'));
     }
@@ -75,11 +97,11 @@ class GaUsuarioController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $gaUsuario = $this->GaUsuario->patchEntity($gaUsuario, $this->request->getData());
             if ($this->GaUsuario->save($gaUsuario)) {
-                $this->Flash->success(__('The ga usuario has been saved.'));
+                $this->Flash->success(__('Usuário editado com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ga usuario could not be saved. Please, try again.'));
+            $this->Flash->error(__('O usuário não pode ser salvo. Por favor tente novamente!'));
         }
         $this->set(compact('gaUsuario'));
     }
@@ -96,9 +118,9 @@ class GaUsuarioController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $gaUsuario = $this->GaUsuario->get($id);
         if ($this->GaUsuario->delete($gaUsuario)) {
-            $this->Flash->success(__('The ga usuario has been deleted.'));
+            $this->Flash->success(__('O usuário foi excluído!'));
         } else {
-            $this->Flash->error(__('The ga usuario could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O usuário não pode ser excluído. Por favor tente novamente'));
         }
 
         return $this->redirect(['action' => 'index']);
