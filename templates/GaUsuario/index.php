@@ -5,8 +5,8 @@
  */
 ?>
 <div class="gaUsuario index content">
-    <?= $this->Html->link(__('New Ga Usuario'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Ga Usuario') ?></h3>
+    <?= $this->Html->link(__('Novo usuário'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <h3><?= __('Usuários do sistema') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>
@@ -28,15 +28,15 @@
                     <td><?= $this->Number->format($gaUsuario->id) ?></td>
                     <td><?= h($gaUsuario->nome) ?></td>
                     <td><?= h($gaUsuario->usuario) ?></td>
-                    <td><?= h($gaUsuario->bloqueado) ?></td>
-                    <td><?= h($gaUsuario->ativo) ?></td>
+                    <td><?= h (boolval($gaUsuario->bloqueado) ? 'Sim' : 'Não') ?></td>
+                    <td><?= h (boolval($gaUsuario->ativo) ? 'Sim' : 'Não') ?></td>
                     <td><?= $this->Number->format($gaUsuario->tentativas) ?></td>
                     <td><?= h($gaUsuario->criado) ?></td>
                     <td><?= h($gaUsuario->editado) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $gaUsuario->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $gaUsuario->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $gaUsuario->id], ['confirm' => __('Are you sure you want to delete # {0}?', $gaUsuario->id)]) ?>
+                        <?= $this->Html->link(__('Visualizar'), ['action' => 'view', $gaUsuario->id]) ?>
+                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $gaUsuario->id]) ?>
+                        <?= $this->Form->postLink(__('Excluir'), ['action' => 'delete', $gaUsuario->id], ['confirm' => __('Tem certeza que deseja excluir # {0}?', $gaUsuario->usuario)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -45,12 +45,12 @@
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('primeiro')) ?>
+            <?= $this->Paginator->prev('< ' . __('anterior')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('próximo') . ' >') ?>
+            <?= $this->Paginator->last(__('último') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} no total')) ?></p>
     </div>
 </div>
