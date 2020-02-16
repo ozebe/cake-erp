@@ -35,6 +35,16 @@ class GaUsuarioTable extends Table
         $this->setTable('ga_usuario');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'criado' => 'new',
+                    'editado' => 'always',
+                ]
+            ]
+        ]);
+
     }
 
     /**
@@ -64,7 +74,7 @@ class GaUsuarioTable extends Table
 
         $validator
             ->scalar('senha')
-            ->maxLength('senha', 32)
+            ->maxLength('senha', 255)
             ->requirePresence('senha', 'create')
             ->notEmptyString('senha');
 
@@ -82,14 +92,6 @@ class GaUsuarioTable extends Table
             ->integer('tentativas')
             ->allowEmptyString('tentativas');
 
-        $validator
-            ->dateTime('criado')
-            ->requirePresence('criado', 'create')
-            ->notEmptyDateTime('criado');
-
-        $validator
-            ->dateTime('editado')
-            ->allowEmptyDateTime('editado');
 
         return $validator;
     }
