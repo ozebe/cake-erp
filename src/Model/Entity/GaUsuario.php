@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-
+use Authentication\PasswordHasher\DefaultPasswordHasher;
 /**
  * GaUsuario Entity
  *
@@ -39,4 +39,11 @@ class GaUsuario extends Entity
         'criado' => true,
         'editado' => true,
     ];
+
+    // faz o Hash da senha, observe que o nome da função precisa ser o mesmo nome do campo senha
+    protected function _setSenha(string $password)
+    {
+        $hasher = new DefaultPasswordHasher();
+        return $hasher->hash($password);
+    }
 }
