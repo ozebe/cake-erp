@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\GaUsuario;
+
 /**
  * GaNivelUsuario Controller
  *
@@ -19,8 +21,10 @@ class GaNivelUsuarioController extends AppController
      */
     public function index()
     {
-        $gaNivelUsuario = $this->paginate($this->GaNivelUsuario);
+        $query = $this->GaNivelUsuario->find('all')->contain(['GaUsuario', 'GaNivelAcesso']);
+        $this->set('query', $query);
 
+        $gaNivelUsuario = $this->paginate($this->GaNivelUsuario);
         $this->set(compact('gaNivelUsuario'));
     }
 
@@ -38,6 +42,12 @@ class GaNivelUsuarioController extends AppController
         ]);
 
         $this->set('gaNivelUsuario', $gaNivelUsuario);
+
+        $query = $this->GaNivelUsuario->get($id, [
+            'contain' => ['GaUsuario', 'GaNivelAcesso'],
+        ]);
+
+        $this->set('query', $query);
     }
 
     /**
@@ -58,6 +68,23 @@ class GaNivelUsuarioController extends AppController
             $this->Flash->error(__('The ga nivel usuario could not be saved. Please, try again.'));
         }
         $this->set(compact('gaNivelUsuario'));
+
+        $query = $this->GaNivelUsuario->find('all', ['limit' => 200])->contain(['GaNivelAcesso']);
+        $this->set(compact('query'));
+
+        $nivel = $this->GaNivelUsuario->GaNivelAcesso->find('list',[
+                        'keyField' => 'id',
+                        'valueField' => 'descricao',
+                        'order' => 'descricao'
+        ]);
+        $this->set(compact('nivel'));
+
+        $usuario = $this->GaNivelUsuario->GaUsuario->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'usuario',
+            'order' => 'usuario'
+        ]);
+        $this->set(compact('usuario'));
     }
 
     /**
@@ -82,6 +109,20 @@ class GaNivelUsuarioController extends AppController
             $this->Flash->error(__('The ga nivel usuario could not be saved. Please, try again.'));
         }
         $this->set(compact('gaNivelUsuario'));
+
+        $nivel = $this->GaNivelUsuario->GaNivelAcesso->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'descricao',
+            'order' => 'descricao'
+        ]);
+        $this->set(compact('nivel'));
+
+        $usuario = $this->GaNivelUsuario->GaUsuario->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'usuario',
+            'order' => 'usuario'
+        ]);
+        $this->set(compact('usuario'));
     }
 
     /**
