@@ -35,6 +35,9 @@ class GaNivelAcessoTable extends Table
         $this->setTable('ga_nivel_acesso');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('GaNivelUsuario')
+            ->setForeignKey('id_nivel_acesso');
     }
 
     /**

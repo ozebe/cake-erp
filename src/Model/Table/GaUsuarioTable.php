@@ -36,6 +36,9 @@ class GaUsuarioTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->hasMany('GaNivelUsuario')
+            ->setForeignKey('id_usuario');
+
         $this->addBehavior('Timestamp', [
             'events' => [
                 'Model.beforeSave' => [
