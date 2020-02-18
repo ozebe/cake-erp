@@ -58,6 +58,5 @@ class AppController extends Controller
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['login', 'logout']);
-
     }
 }
