@@ -16,9 +16,6 @@
                     <th><?= $this->Paginator->sort('usuario') ?></th>
                     <th><?= $this->Paginator->sort('bloqueado') ?></th>
                     <th><?= $this->Paginator->sort('ativo') ?></th>
-                    <th><?= $this->Paginator->sort('tentativas') ?></th>
-                    <th><?= $this->Paginator->sort('criado') ?></th>
-                    <th><?= $this->Paginator->sort('editado') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -30,9 +27,6 @@
                     <td><?= h($gaUsuario->usuario) ?></td>
                     <td><?= h (boolval($gaUsuario->bloqueado) ? 'Sim' : 'Não') ?></td>
                     <td><?= h (boolval($gaUsuario->ativo) ? 'Sim' : 'Não') ?></td>
-                    <td><?= $this->Number->format($gaUsuario->tentativas) ?></td>
-                    <td><?= h($gaUsuario->criado) ?></td>
-                    <td><?= h($gaUsuario->editado) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('Visualizar'), ['action' => 'view', $gaUsuario->id]) ?>
                         <?= $this->Html->link(__('Editar'), ['action' => 'edit', $gaUsuario->id]) ?>
