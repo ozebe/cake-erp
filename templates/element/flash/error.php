@@ -8,4 +8,10 @@ if (!isset($params['escape']) || $params['escape'] !== false) {
     $message = h($message);
 }
 ?>
-<div class="message error" onclick="this.classList.add('hidden');"><?= $message ?></div>
+<script>
+    (function($){
+        $(function(){
+            <?php echo "M.toast({html: '" . $message . "', classes: 'red accent-4'});"; ?>
+        }); // end of document ready
+    })(jQuery); // end of jQuery name space
+</script>
