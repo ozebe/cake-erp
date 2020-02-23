@@ -59,4 +59,13 @@ class AppController extends Controller
 
         $this->Authentication->allowUnauthenticated(['login', 'logout']);
     }
+
+    public function beforeRender(\Cake\Event\EventInterface $event) {
+
+        if($this->Authentication->getResult()->getStatus() == 'SUCCESS'){
+            $GaUsuarioLogado = $this->Authentication->getResult()->getData();
+            $this->set(compact('GaUsuarioLogado'));
+        }
+
+    }
 }
