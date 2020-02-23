@@ -22,7 +22,6 @@ class GaUsuarioController extends AppController
             return $this->redirect($target);
         }
         if ($this->request->is('post') && !$result->isValid()) {
-            echo print_r($result);
             $this->Flash->error('Usuário ou senha incorreta');
         }
     }
@@ -42,7 +41,6 @@ class GaUsuarioController extends AppController
     public function index()
     {
         $gaUsuario = $this->paginate($this->GaUsuario);
-
         $this->set(compact('gaUsuario'));
     }
 
