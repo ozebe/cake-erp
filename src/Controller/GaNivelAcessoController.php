@@ -51,11 +51,11 @@ class GaNivelAcessoController extends AppController
         if ($this->request->is('post')) {
             $gaNivelAcesso = $this->GaNivelAcesso->patchEntity($gaNivelAcesso, $this->request->getData());
             if ($this->GaNivelAcesso->save($gaNivelAcesso)) {
-                $this->Flash->success(__('The ga nivel acesso has been saved.'));
+                $this->Flash->success(__('Nível de acesso salvo com sucesso'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ga nivel acesso could not be saved. Please, try again.'));
+            $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
         }
         $this->set(compact('gaNivelAcesso'));
     }
@@ -75,11 +75,11 @@ class GaNivelAcessoController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $gaNivelAcesso = $this->GaNivelAcesso->patchEntity($gaNivelAcesso, $this->request->getData());
             if ($this->GaNivelAcesso->save($gaNivelAcesso)) {
-                $this->Flash->success(__('The ga nivel acesso has been saved.'));
+                $this->Flash->success(__('Nível de acesso editado com sucesso'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ga nivel acesso could not be saved. Please, try again.'));
+            $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
         }
         $this->set(compact('gaNivelAcesso'));
     }
@@ -96,9 +96,9 @@ class GaNivelAcessoController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $gaNivelAcesso = $this->GaNivelAcesso->get($id);
         if ($this->GaNivelAcesso->delete($gaNivelAcesso)) {
-            $this->Flash->success(__('The ga nivel acesso has been deleted.'));
+            $this->Flash->success(__('Nível de acesso excluído!'));
         } else {
-            $this->Flash->error(__('The ga nivel acesso could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
         }
 
         return $this->redirect(['action' => 'index']);

@@ -61,16 +61,13 @@ class GaNivelUsuarioController extends AppController
         if ($this->request->is('post')) {
             $gaNivelUsuario = $this->GaNivelUsuario->patchEntity($gaNivelUsuario, $this->request->getData());
             if ($this->GaNivelUsuario->save($gaNivelUsuario)) {
-                $this->Flash->success(__('The ga nivel usuario has been saved.'));
+                $this->Flash->success(__('Usuário por nível salvo com sucesso'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ga nivel usuario could not be saved. Please, try again.'));
+            $this->Flash->error(__('O usuário por nível não pode ser salvo. Por favor tente novamente!'));
         }
         $this->set(compact('gaNivelUsuario'));
-
-        $query = $this->GaNivelUsuario->find('all', ['limit' => 200])->contain(['GaNivelAcesso']);
-        $this->set(compact('query'));
 
         $nivel = $this->GaNivelUsuario->GaNivelAcesso->find('list',[
                         'keyField' => 'id',
@@ -102,11 +99,11 @@ class GaNivelUsuarioController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $gaNivelUsuario = $this->GaNivelUsuario->patchEntity($gaNivelUsuario, $this->request->getData());
             if ($this->GaNivelUsuario->save($gaNivelUsuario)) {
-                $this->Flash->success(__('The ga nivel usuario has been saved.'));
+                $this->Flash->success(__('Nível e respectivo usuário editado com sucesso'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ga nivel usuario could not be saved. Please, try again.'));
+            $this->Flash->error(__('O usuário por nível não pode ser salvo. Por favor tente novamente!'));
         }
         $this->set(compact('gaNivelUsuario'));
 
@@ -137,9 +134,9 @@ class GaNivelUsuarioController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $gaNivelUsuario = $this->GaNivelUsuario->get($id);
         if ($this->GaNivelUsuario->delete($gaNivelUsuario)) {
-            $this->Flash->success(__('The ga nivel usuario has been deleted.'));
+            $this->Flash->success(__('Respectivo nível por usuário excluído!'));
         } else {
-            $this->Flash->error(__('The ga nivel usuario could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O usuário por nível não pode ser salvo. Por favor tente novamente!'));
         }
 
         return $this->redirect(['action' => 'index']);
