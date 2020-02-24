@@ -5,33 +5,85 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Ações') ?></h4>
-            <?= $this->Form->postLink(
-                __('Excluir'),
-                ['action' => 'delete', $gaUsuario->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $gaUsuario->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('Listar usuários'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
+            <h4 class="heading"><?= __('Editar usuário') ?></h4>
+    <div class="card-panel">
     <div class="column-responsive column-80">
         <div class="gaUsuario form content">
             <?= $this->Form->create($gaUsuario) ?>
-            <fieldset>
                 <legend><?= __('Editar usuário') ?></legend>
                 <?php
-                    echo $this->Form->control('nome');
-                    echo $this->Form->control('usuario');
-                    echo $this->Form->control('senha');
-                    echo $this->Form->control('bloqueado');
-                    echo $this->Form->control('ativo');
+
+                echo '<div class="input-field">';
+                echo $this->Form->text('nome', array("id" =>"nome"));
+                echo '<label for="nome">';echo $this->Form->label("nome", "Nome");echo '</label>';
+                echo '</div>';
+
+                echo '<div class="input-field">';
+                echo $this->Form->text('usuario', array("id" =>"usuario"));
+                echo '<label for="usuario">';echo $this->Form->label("usuario", "Usuário");echo '</label>';
+                echo '</div>';
+
+                echo '<div class="input-field">';
+                echo $this->Form->password('senha', array("id" =>"senha"));
+                echo '<label for="senha">';echo $this->Form->label("senha", "Senha");echo '</label>';
+                echo '</div>';
+
+
+
+                    echo 'Bloqueado';
+                    echo '<div class= "switch">';
+                        echo '<label>';
+                            echo 'Não';
+                                 echo $this->Form->checkbox('bloqueado');
+                                 echo ' <span class="lever"></span>';
+                            echo 'Sim';
+                        echo '</label>';
+                    echo '<div>';
+
+                    echo '<br>';
+
+                    echo 'Ativo';
+                    echo '<div class= "switch">';
+                        echo '<label>';
+                            echo 'Não';
+                                echo $this->Form->checkbox('ativo');
+                                echo ' <span class="lever"></span>';
+                            echo 'Sim';
+                        echo '</label>';
+                    echo '<div>';
+
                     echo $this->Form->control('tentativas');
+                echo '<br>';
                 ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+
+            <?= $this->Form->button(__('Salvar'),['class' => 'waves-effect waves-light btn', 'escape' => false]) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
+    </div>
 </div>
+
+<!-- Botão flutuante com opção de ir para o index e apagar, para utilizar no edit-->
+<div class="fixed-action-btn horizontal">
+    <a class="btn-floating waves-effect waves-light btn-large orange darken-1">
+        <i class="large material-icons">build</i>
+    </a>
+    <ul>
+        <li> <!-- botão flutuante de excluir-->
+            <?= $this->Form->postLink('<i class="material-icons">delete</i>',
+                ['action' => 'delete', $gaUsuario->id],
+                ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light red']
+
+            );?>
+        </li>
+
+        <li> <!-- botão flutuante de listar-->
+            <?= $this->Html->link('<i class="material-icons">list</i>',
+                ['action' => 'index'],
+                ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light green darken-1']
+            );?>
+        </li>
+    </ul>
+</div>
+
+

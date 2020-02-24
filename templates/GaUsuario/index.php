@@ -5,46 +5,61 @@
  */
 ?>
 <div class="gaUsuario index content">
-    <?= $this->Html->link(__('Novo usuário'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Usuários do sistema') ?></h3>
+    <h4><?= __('Usuários do sistema') ?></h4>
     <div class="table-responsive">
-        <table>
+        <table class="striped">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('nome') ?></th>
                     <th><?= $this->Paginator->sort('usuario') ?></th>
                     <th><?= $this->Paginator->sort('bloqueado') ?></th>
                     <th><?= $this->Paginator->sort('ativo') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th class="actions"><?= __('Ações') ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($gaUsuario as $gaUsuario): ?>
                 <tr>
-                    <td><?= $this->Number->format($gaUsuario->id) ?></td>
                     <td><?= h($gaUsuario->nome) ?></td>
                     <td><?= h($gaUsuario->usuario) ?></td>
                     <td><?= h (boolval($gaUsuario->bloqueado) ? 'Sim' : 'Não') ?></td>
                     <td><?= h (boolval($gaUsuario->ativo) ? 'Sim' : 'Não') ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Visualizar'), ['action' => 'view', $gaUsuario->id]) ?>
-                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $gaUsuario->id]) ?>
-                        <?= $this->Form->postLink(__('Excluir'), ['action' => 'delete', $gaUsuario->id], ['confirm' => __('Tem certeza que deseja excluir # {0}?', $gaUsuario->usuario)]) ?>
+                        <?= $this->Html->link('<i class="material-icons">visibility</i>',
+                            ['action' => 'view', $gaUsuario->id],
+                            ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light green darken-1']
+                        );?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+    <!-- paginação -->
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('primeiro')) ?>
-            <?= $this->Paginator->prev('< ' . __('anterior')) ?>
+            <?= $this->Paginator->first('<i class="material-icons">fast_rewind</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->prev('<i class="material-icons">chevron_left</i>',
+                ['escape' => false]
+            );?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('próximo') . ' >') ?>
-            <?= $this->Paginator->last(__('último') . ' >>') ?>
+            <?= $this->Paginator->next('<i class="material-icons">chevron_right</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->last('<i class="material-icons">fast_forward</i>',
+                ['escape' => false]
+            );?>
         </ul>
         <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} no total')) ?></p>
     </div>
+</div>
+
+<!-- Botão flutuante novo-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">add</i>',
+        ['action' => 'add'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-4']
+    );?>
 </div>
