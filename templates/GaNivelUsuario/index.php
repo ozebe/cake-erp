@@ -6,10 +6,9 @@
  */
 ?>
 <div class="gaNivelUsuario index content">
-    <?= $this->Html->link(__('Novo nivel de acesso'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Usuarios e niveis de acesso') ?></h3>
+    <h4><?= __('Usuarios e niveis de acesso') ?></h4>
     <div class="table-responsive">
-    <table>
+    <table class="striped">
         <thead>
         <tr>
             <th><?= $this->Paginator->sort('Usuario') ?></th>
@@ -23,31 +22,48 @@
                 <td><?= h($q->ga_usuario->usuario)?></td>
                 <td><?= h($q->ga_nivel_acesso->descricao)?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Visualizar'), ['action' => 'view', $q->id]) ?>
-                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $q->id]) ?>
-                    <?= $this->Form->postLink(__('Excluir'), ['action' => 'delete', $q->id], ['confirm' => __('Are you sure you want to delete # {0}?', $q->id)]) ?>
+                    <?= $this->Html->link('<i class="material-icons">visibility</i>',
+                        ['action' => 'view', $q->id],
+                        ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light green darken-1']
+                    );?>
+
+                    <?= $this->Form->postLink('<i class="material-icons">delete</i>',
+                        ['action' => 'delete', $q->id],
+                        ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light red']
+
+                    );?>
                 </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
     </div>
+
+    <!-- paginação -->
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<i class="material-icons">fast_rewind</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->prev('<i class="material-icons">chevron_left</i>',
+                ['escape' => false]
+            );?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next('<i class="material-icons">chevron_right</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->last('<i class="material-icons">fast_forward</i>',
+                ['escape' => false]
+            );?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} no total')) ?></p>
     </div>
-    </div>
+</div>
 
-
-
-
-
-
-
+<!-- Botão flutuante novo-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">add</i>',
+        ['action' => 'add'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-4']
+    );?>
 </div>

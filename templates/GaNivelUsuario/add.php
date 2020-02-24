@@ -7,24 +7,34 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Usuarios e niveis de acesso'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
+            <h4 class="heading"><?= __('Cadastro de nível por usuário') ?></h4>
+    <div class="card-panel">
     <div class="column-responsive column-80">
         <div class="gaNivelUsuario form content">
             <?= $this->Form->create($gaNivelUsuario) ?>
-            <fieldset>
-                <legend><?= __('Adicionar acesso á usuário') ?></legend>
+
+
                 <?php
+                echo '<label>Usuário</label>';
                 echo $this->Form->select('id_usuario', $usuario);
+                echo '<br>';
+                echo '<label>Nível de acesso</label>';
                 echo $this->Form->select('id_nivel_acesso', $nivel);
                 ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <br>
+            <?= $this->Form->button(__('Salvar'),['class' => 'waves-effect waves-light btn', 'escape' => false]) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
+    </div>
+</div>
+
+<!-- Botão flutuante listar-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">list</i>',
+        ['action' => 'index'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-1']
+    );?>
+</div>
+
 </div>
