@@ -5,24 +5,39 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Ga Nivel Acesso'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <h4 class="heading"><?= __('Cadastro de nível de acesso') ?></h4>
         </div>
-    </aside>
+    <div class="card-panel">
     <div class="column-responsive column-80">
         <div class="gaNivelAcesso form content">
             <?= $this->Form->create($gaNivelAcesso) ?>
-            <fieldset>
-                <legend><?= __('Add Ga Nivel Acesso') ?></legend>
                 <?php
-                    echo $this->Form->control('sigla');
-                    echo $this->Form->control('descricao');
+
+            echo '<div class="input-field">';
+            echo $this->Form->text('sigla', array("id" =>"sigla"));
+            echo '<label for="sigla">';echo $this->Form->label("sigla", "Sigla");echo '</label>';
+            echo '</div>';
+
+            echo '<div class="input-field">';
+            echo $this->Form->text('descricao', array("id" =>"descricao"));
+            echo '<label for="descricao">';echo $this->Form->label("descricao", "Descrição");echo '</label>';
+            echo '</div>';
+
+            echo '<br>';
                 ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+                <?= $this->Form->button(__('Salvar'),['class' => 'waves-effect waves-light btn', 'escape' => false]) ?>
+
             <?= $this->Form->end() ?>
         </div>
     </div>
+    </div>
+</div>
+
+<!-- Botão flutuante listar-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">list</i>',
+        ['action' => 'index'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-1']
+    );?>
 </div>

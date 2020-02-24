@@ -5,29 +5,51 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $gaNivelAcesso->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $gaNivelAcesso->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Ga Nivel Acesso'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
+            <h4 class="heading"><?= __('Editar nível de acesso') ?></h4>
+    <div class="card-panel">
     <div class="column-responsive column-80">
         <div class="gaNivelAcesso form content">
             <?= $this->Form->create($gaNivelAcesso) ?>
-            <fieldset>
-                <legend><?= __('Edit Ga Nivel Acesso') ?></legend>
                 <?php
-                    echo $this->Form->control('sigla');
-                    echo $this->Form->control('descricao');
+
+            echo '<div class="input-field">';
+            echo $this->Form->text('sigla', array("id" =>"sigla"));
+            echo '<label for="sigla">';echo $this->Form->label("sigla", "Sigla");echo '</label>';
+            echo '</div>';
+
+            echo '<div class="input-field">';
+            echo $this->Form->text('descricao', array("id" =>"descricao"));
+            echo '<label for="descricao">';echo $this->Form->label("descricao", "Descrição");echo '</label>';
+            echo '</div>';
+
+            echo '<br>';
                 ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+
+            <?= $this->Form->button(__('Salvar'),['class' => 'waves-effect waves-light btn', 'escape' => false]) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
+    </div>
+</div>
+<!-- Botão flutuante com opção de ir para o index e apagar, para utilizar no edit-->
+<div class="fixed-action-btn horizontal">
+    <a class="btn-floating waves-effect waves-light btn-large orange darken-1">
+        <i class="large material-icons">build</i>
+    </a>
+    <ul>
+        <li> <!-- botão flutuante de excluir-->
+            <?= $this->Form->postLink('<i class="material-icons">delete</i>',
+                ['action' => 'delete', $gaNivelAcesso->id],
+                ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light red']
+
+            );?>
+        </li>
+
+        <li> <!-- botão flutuante de listar-->
+            <?= $this->Html->link('<i class="material-icons">list</i>',
+                ['action' => 'index'],
+                ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light green darken-1']
+            );?>
+        </li>
+    </ul>
 </div>
