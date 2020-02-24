@@ -48,7 +48,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     {
         $service = new AuthenticationService();
         $service->setConfig([
-            'unauthenticatedRedirect' => '/cake-erp/GaUsuario/login',
+            'unauthenticatedRedirect' => '/cake-erp/ga-usuario/login',
             'queryParam' => 'redirect',
         ]);
 
@@ -61,7 +61,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $service->loadAuthenticator('Authentication.Session');
         $service->loadAuthenticator('Authentication.Form', [
             'fields' => $fields,
-            'loginUrl' => '/cake-erp/GaUsuario/login'
+            'loginUrl' => '/cake-erp/ga-usuario/login'
         ]);
 
         // Load identifiers
