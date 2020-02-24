@@ -57,14 +57,21 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['login', 'logout']);
+        $this->Authentication->allowUnauthenticated(['login']);
     }
 
     public function beforeRender(\Cake\Event\EventInterface $event) {
-
         if($this->Authentication->getResult()->getStatus() == 'SUCCESS'){
             $GaUsuarioLogado = $this->Authentication->getResult()->getData();
             $this->set(compact('GaUsuarioLogado'));
+
+            $logado = true;
+            $this->set(compact('logado'));
+
+        } else{
+
+            $logado = false;
+            $this->set(compact('logado'));
         }
 
     }
