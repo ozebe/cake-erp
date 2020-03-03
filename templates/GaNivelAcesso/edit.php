@@ -13,11 +13,13 @@
                 <?php
 
             echo '<div class="input-field">';
+            echo '<i class="material-icons prefix">short_text</i>';
             echo $this->Form->text('sigla', array("id" =>"sigla"));
             echo '<label for="sigla">';echo $this->Form->label("sigla", "Sigla");echo '</label>';
             echo '</div>';
 
             echo '<div class="input-field">';
+            echo '<i class="material-icons prefix">notes</i>';
             echo $this->Form->text('descricao', array("id" =>"descricao"));
             echo '<label for="descricao">';echo $this->Form->label("descricao", "Descrição");echo '</label>';
             echo '</div>';

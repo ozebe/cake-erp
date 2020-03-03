@@ -13,16 +13,19 @@
             <?php
 
             echo '<div class="input-field">';
+            echo '<i class="material-icons prefix">face</i>';
             echo $this->Form->text('nome', array("id" =>"nome"));
             echo '<label for="nome">';echo $this->Form->label("nome", "Nome");echo '</label>';
             echo '</div>';
 
             echo '<div class="input-field">';
+            echo '<i class="material-icons prefix">account_circle</i>';
             echo $this->Form->text('usuario', array("id" =>"usuario"));
             echo '<label for="usuario">';echo $this->Form->label("usuario", "Usuário");echo '</label>';
             echo '</div>';
 
             echo '<div class="input-field">';
+            echo '<i class="material-icons prefix">vpn_key</i>';
             echo $this->Form->password('senha', array("id" =>"senha"));
             echo '<label for="senha">';echo $this->Form->label("senha", "Senha");echo '</label>';
             echo '</div>';
