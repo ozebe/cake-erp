@@ -16,6 +16,7 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use App\Model\Entity\GaNivelUsuario;
 use Cake\Controller\Controller;
 
 /**
@@ -37,13 +38,21 @@ class AppController extends Controller
      *
      * @return void
      */
+    public $nivelUsuario;
     public function initialize(): void
     {
         parent::initialize();
         $this->loadComponent('Authentication.Authentication');
 
+        //$this->loadComponent('Authorization.Authorization');
+
+
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+
+        //carrega o modelo GaUsuario para acessarmos os dados de qualquer local
+        //$this->loadModel("GaUsuario");
+        $this->loadModel('GaNivelUsuario');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
@@ -58,9 +67,8 @@ class AppController extends Controller
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['login']);
-    }
 
-    public function beforeRender(\Cake\Event\EventInterface $event) {
+        //se um usuário estiver logado
         if($this->Authentication->getResult()->getStatus() == 'SUCCESS'){
             $GaUsuarioLogado = $this->Authentication->getResult()->getData();
             $this->set(compact('GaUsuarioLogado'));
@@ -68,8 +76,15 @@ class AppController extends Controller
             $logado = true;
             $this->set(compact('logado'));
 
-        } else{
+            //deve ser acessado como $this->nivelUsuario para acessar nos controllers
+            $this->nivelUsuario = $this->GaNivelUsuario->find('all',[
+                'conditions' => ['GaNivelUsuario.id_usuario' => $GaUsuarioLogado->id] ,
+            ])->contain('GaNivelAcesso')->select(['GaNivelAcesso.sigla','GaNivelAcesso.descricao']);
 
+            //carrega os valores da variavel publica para poder ser utilizada nos templates
+            $nivelUsuarioLogado = $this->nivelUsuario;
+            $this->set(compact('nivelUsuarioLogado'));
+        } else{
             $logado = false;
             $this->set(compact('logado'));
         }
