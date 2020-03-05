@@ -104,9 +104,22 @@ $cakeDescription = 'CakeERP';
                 </span></a> <!-- usuário do usuário -->
         </div></li>
     <?php
+    //se o usuario estiver logado
     if($logado == true){
-    echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga"><i class="material-icons">group</i>Gestão de acesso</a></li>';
-    echo '<li><div class="divider"></div></li>';
+        //foreach para verificar niveis do usuario logado
+        foreach($nivelUsuarioLogado as $niveis) {
+            //se o usuário for administrador libera todos os módulos
+            if($niveis->ga_nivel_acesso->sigla == "ADM"){
+                //gestão de acesso
+                echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga"><i class="material-icons">group</i>Gestão de acesso</a></li>';
+
+             //se o usuário estiver no gestão de acesso
+            }elseif($niveis->ga_nivel_acesso->sigla == "GA"){
+                echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga"><i class="material-icons">group</i>Gestão de acesso</a></li>';
+
+            }
+        }
+        echo '<li><div class="divider"></div></li>';
 
             echo '<li><a class="subheader">Usuário</a></li>';
             echo '<li>';
