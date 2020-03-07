@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Exception\ForbiddenException;
 /**
  * GaNivelAcesso Controller
  *
@@ -12,6 +13,18 @@ namespace App\Controller;
  */
 class GaNivelAcessoController extends AppController
 {
+    public function autorizado(){
+        foreach($this->nivelUsuario as $nivel){
+            if(($nivel->ga_nivel_acesso->sigla == "ADM")){
+                return true;
+                break;
+            } else {
+                return false;
+                break;
+            }
+        }
+    }
+
     /**
      * Index method
      *
@@ -19,9 +32,15 @@ class GaNivelAcessoController extends AppController
      */
     public function index()
     {
-        $gaNivelAcesso = $this->paginate($this->GaNivelAcesso);
+        if($this->autorizado($this->nivelUsuario)){
+            $gaNivelAcesso = $this->paginate($this->GaNivelAcesso);
 
-        $this->set(compact('gaNivelAcesso'));
+            $this->set(compact('gaNivelAcesso'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
+        }
+
     }
 
     /**
@@ -33,11 +52,17 @@ class GaNivelAcessoController extends AppController
      */
     public function view($id = null)
     {
-        $gaNivelAcesso = $this->GaNivelAcesso->get($id, [
-            'contain' => [],
-        ]);
+        if($this->autorizado($this->nivelUsuario)){
+            $gaNivelAcesso = $this->GaNivelAcesso->get($id, [
+                'contain' => [],
+            ]);
 
-        $this->set('gaNivelAcesso', $gaNivelAcesso);
+            $this->set('gaNivelAcesso', $gaNivelAcesso);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
+        }
+
     }
 
     /**
@@ -47,17 +72,23 @@ class GaNivelAcessoController extends AppController
      */
     public function add()
     {
-        $gaNivelAcesso = $this->GaNivelAcesso->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $gaNivelAcesso = $this->GaNivelAcesso->patchEntity($gaNivelAcesso, $this->request->getData());
-            if ($this->GaNivelAcesso->save($gaNivelAcesso)) {
-                $this->Flash->success(__('Nível de acesso salvo com sucesso'));
+        if($this->autorizado($this->nivelUsuario)){
+            $gaNivelAcesso = $this->GaNivelAcesso->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $gaNivelAcesso = $this->GaNivelAcesso->patchEntity($gaNivelAcesso, $this->request->getData());
+                if ($this->GaNivelAcesso->save($gaNivelAcesso)) {
+                    $this->Flash->success(__('Nível de acesso salvo com sucesso'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
             }
-            $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
+            $this->set(compact('gaNivelAcesso'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
         }
-        $this->set(compact('gaNivelAcesso'));
+
     }
 
     /**
@@ -69,19 +100,25 @@ class GaNivelAcessoController extends AppController
      */
     public function edit($id = null)
     {
-        $gaNivelAcesso = $this->GaNivelAcesso->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $gaNivelAcesso = $this->GaNivelAcesso->patchEntity($gaNivelAcesso, $this->request->getData());
-            if ($this->GaNivelAcesso->save($gaNivelAcesso)) {
-                $this->Flash->success(__('Nível de acesso editado com sucesso'));
+        if($this->autorizado($this->nivelUsuario)){
+            $gaNivelAcesso = $this->GaNivelAcesso->get($id, [
+                'contain' => [],
+            ]);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $gaNivelAcesso = $this->GaNivelAcesso->patchEntity($gaNivelAcesso, $this->request->getData());
+                if ($this->GaNivelAcesso->save($gaNivelAcesso)) {
+                    $this->Flash->success(__('Nível de acesso editado com sucesso'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
             }
-            $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
+            $this->set(compact('gaNivelAcesso'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
         }
-        $this->set(compact('gaNivelAcesso'));
+
     }
 
     /**
@@ -93,14 +130,20 @@ class GaNivelAcessoController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $gaNivelAcesso = $this->GaNivelAcesso->get($id);
-        if ($this->GaNivelAcesso->delete($gaNivelAcesso)) {
-            $this->Flash->success(__('Nível de acesso excluído!'));
-        } else {
-            $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
+        if($this->autorizado($this->nivelUsuario)){
+            $this->request->allowMethod(['post', 'delete']);
+            $gaNivelAcesso = $this->GaNivelAcesso->get($id);
+            if ($this->GaNivelAcesso->delete($gaNivelAcesso)) {
+                $this->Flash->success(__('Nível de acesso excluído!'));
+            } else {
+                $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
+            }
+
+            return $this->redirect(['action' => 'index']);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
         }
 
-        return $this->redirect(['action' => 'index']);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\Entity\GaUsuario;
-
+use Cake\Http\Exception\ForbiddenException;
 /**
  * GaNivelUsuario Controller
  *
@@ -14,6 +14,17 @@ use App\Model\Entity\GaUsuario;
  */
 class GaNivelUsuarioController extends AppController
 {
+    public function autorizado(){
+        foreach($this->nivelUsuario as $nivel){
+            if(($nivel->ga_nivel_acesso->sigla == "ADM")){
+                return true;
+                break;
+            } else {
+                return false;
+                break;
+            }
+        }
+    }
     /**
      * Index method
      *
@@ -21,11 +32,16 @@ class GaNivelUsuarioController extends AppController
      */
     public function index()
     {
-        $query = $this->GaNivelUsuario->find('all')->contain(['GaUsuario', 'GaNivelAcesso']);
-        $this->set('query', $query);
+        if($this->autorizado($this->nivelUsuario)){
+            $query = $this->GaNivelUsuario->find('all')->contain(['GaUsuario', 'GaNivelAcesso']);
+            $this->set('query', $query);
 
-        $gaNivelUsuario = $this->paginate($this->GaNivelUsuario);
-        $this->set(compact('gaNivelUsuario'));
+            $gaNivelUsuario = $this->paginate($this->GaNivelUsuario);
+            $this->set(compact('gaNivelUsuario'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
+        }
     }
 
     /**
@@ -37,17 +53,22 @@ class GaNivelUsuarioController extends AppController
      */
     public function view($id = null)
     {
-        $gaNivelUsuario = $this->GaNivelUsuario->get($id, [
-            'contain' => [],
-        ]);
+        if($this->autorizado($this->nivelUsuario)){
+            $gaNivelUsuario = $this->GaNivelUsuario->get($id, [
+                'contain' => [],
+            ]);
 
-        $this->set('gaNivelUsuario', $gaNivelUsuario);
+            $this->set('gaNivelUsuario', $gaNivelUsuario);
 
-        $query = $this->GaNivelUsuario->get($id, [
-            'contain' => ['GaUsuario', 'GaNivelAcesso'],
-        ]);
+            $query = $this->GaNivelUsuario->get($id, [
+                'contain' => ['GaUsuario', 'GaNivelAcesso'],
+            ]);
 
-        $this->set('query', $query);
+            $this->set('query', $query);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
+        }
     }
 
     /**
@@ -57,31 +78,37 @@ class GaNivelUsuarioController extends AppController
      */
     public function add()
     {
-        $gaNivelUsuario = $this->GaNivelUsuario->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $gaNivelUsuario = $this->GaNivelUsuario->patchEntity($gaNivelUsuario, $this->request->getData());
-            if ($this->GaNivelUsuario->save($gaNivelUsuario)) {
-                $this->Flash->success(__('Usuário por nível salvo com sucesso'));
+        if($this->autorizado($this->nivelUsuario)){
+            $gaNivelUsuario = $this->GaNivelUsuario->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $gaNivelUsuario = $this->GaNivelUsuario->patchEntity($gaNivelUsuario, $this->request->getData());
+                if ($this->GaNivelUsuario->save($gaNivelUsuario)) {
+                    $this->Flash->success(__('Usuário por nível salvo com sucesso'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('O usuário por nível não pode ser salvo. Por favor tente novamente!'));
             }
-            $this->Flash->error(__('O usuário por nível não pode ser salvo. Por favor tente novamente!'));
+            $this->set(compact('gaNivelUsuario'));
+
+            $nivel = $this->GaNivelUsuario->GaNivelAcesso->find('list',[
+                'keyField' => 'id',
+                'valueField' => 'descricao',
+                'order' => 'descricao'
+            ]);
+            $this->set(compact('nivel'));
+
+            $usuario = $this->GaNivelUsuario->GaUsuario->find('list',[
+                'keyField' => 'id',
+                'valueField' => 'usuario',
+                'order' => 'usuario'
+            ]);
+            $this->set(compact('usuario'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
         }
-        $this->set(compact('gaNivelUsuario'));
 
-        $nivel = $this->GaNivelUsuario->GaNivelAcesso->find('list',[
-                        'keyField' => 'id',
-                        'valueField' => 'descricao',
-                        'order' => 'descricao'
-        ]);
-        $this->set(compact('nivel'));
-
-        $usuario = $this->GaNivelUsuario->GaUsuario->find('list',[
-            'keyField' => 'id',
-            'valueField' => 'usuario',
-            'order' => 'usuario'
-        ]);
-        $this->set(compact('usuario'));
     }
 
     /**
@@ -93,33 +120,39 @@ class GaNivelUsuarioController extends AppController
      */
     public function edit($id = null)
     {
-        $gaNivelUsuario = $this->GaNivelUsuario->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $gaNivelUsuario = $this->GaNivelUsuario->patchEntity($gaNivelUsuario, $this->request->getData());
-            if ($this->GaNivelUsuario->save($gaNivelUsuario)) {
-                $this->Flash->success(__('Nível e respectivo usuário editado com sucesso'));
+        if($this->autorizado($this->nivelUsuario)){
+            $gaNivelUsuario = $this->GaNivelUsuario->get($id, [
+                'contain' => [],
+            ]);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $gaNivelUsuario = $this->GaNivelUsuario->patchEntity($gaNivelUsuario, $this->request->getData());
+                if ($this->GaNivelUsuario->save($gaNivelUsuario)) {
+                    $this->Flash->success(__('Nível e respectivo usuário editado com sucesso'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('O usuário por nível não pode ser salvo. Por favor tente novamente!'));
             }
-            $this->Flash->error(__('O usuário por nível não pode ser salvo. Por favor tente novamente!'));
+            $this->set(compact('gaNivelUsuario'));
+
+            $nivel = $this->GaNivelUsuario->GaNivelAcesso->find('list',[
+                'keyField' => 'id',
+                'valueField' => 'descricao',
+                'order' => 'descricao'
+            ]);
+            $this->set(compact('nivel'));
+
+            $usuario = $this->GaNivelUsuario->GaUsuario->find('list',[
+                'keyField' => 'id',
+                'valueField' => 'usuario',
+                'order' => 'usuario'
+            ]);
+            $this->set(compact('usuario'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
         }
-        $this->set(compact('gaNivelUsuario'));
 
-        $nivel = $this->GaNivelUsuario->GaNivelAcesso->find('list',[
-            'keyField' => 'id',
-            'valueField' => 'descricao',
-            'order' => 'descricao'
-        ]);
-        $this->set(compact('nivel'));
-
-        $usuario = $this->GaNivelUsuario->GaUsuario->find('list',[
-            'keyField' => 'id',
-            'valueField' => 'usuario',
-            'order' => 'usuario'
-        ]);
-        $this->set(compact('usuario'));
     }
 
     /**
@@ -131,14 +164,19 @@ class GaNivelUsuarioController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $gaNivelUsuario = $this->GaNivelUsuario->get($id);
-        if ($this->GaNivelUsuario->delete($gaNivelUsuario)) {
-            $this->Flash->success(__('Respectivo nível por usuário excluído!'));
-        } else {
-            $this->Flash->error(__('O usuário por nível não pode ser salvo. Por favor tente novamente!'));
-        }
+        if($this->autorizado($this->nivelUsuario)){
+            $this->request->allowMethod(['post', 'delete']);
+            $gaNivelUsuario = $this->GaNivelUsuario->get($id);
+            if ($this->GaNivelUsuario->delete($gaNivelUsuario)) {
+                $this->Flash->success(__('Respectivo nível por usuário excluído!'));
+            } else {
+                $this->Flash->error(__('O usuário por nível não pode ser salvo. Por favor tente novamente!'));
+            }
 
-        return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
+        }
     }
 }
