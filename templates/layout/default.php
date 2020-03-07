@@ -61,8 +61,8 @@ $cakeDescription = 'CakeERP';
 </div>
 
 
-<!-- Dropdown Gestão de acesso -->
-<ul id='dropdown-ga' class='dropdown-content'>
+<!-- Dropdown Gestão de acesso administrador-->
+<ul id='dropdown-ga-adm' class='dropdown-content'>
     <li>
         <?= $this->Html->link('Usuários<i class="material-icons">person</i>',
             ['controller' => 'GaUsuario', 'action' => 'index'],
@@ -82,6 +82,18 @@ $cakeDescription = 'CakeERP';
         );?>
     </li>
 </ul>
+<!----------------------------------->
+
+<!-- Dropdown Gestão de acesso -->
+<ul id='dropdown-ga' class='dropdown-content'>
+    <li>
+        <?= $this->Html->link('Usuários<i class="material-icons">person</i>',
+            ['controller' => 'GaUsuario', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
+</ul>
+<!----------------------------------->
 
 <!--NAV BAR COM SLIDE-->
 <ul id="slide-out" class="sidenav">
@@ -110,9 +122,8 @@ $cakeDescription = 'CakeERP';
         foreach($nivelUsuarioLogado as $niveis) {
             //se o usuário for administrador libera todos os módulos
             if($niveis->ga_nivel_acesso->sigla == "ADM"){
-                //gestão de acesso
-                echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga"><i class="material-icons">group</i>Gestão de acesso</a></li>';
-
+                echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga-adm"><i class="material-icons">group</i>Gestão de acesso</a></li>';
+                break;
              //se o usuário estiver no gestão de acesso
             }elseif($niveis->ga_nivel_acesso->sigla == "GA"){
                 echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga"><i class="material-icons">group</i>Gestão de acesso</a></li>';
