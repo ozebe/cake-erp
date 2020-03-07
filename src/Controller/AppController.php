@@ -44,6 +44,7 @@ class AppController extends Controller
         parent::initialize();
         $this->loadComponent('Authentication.Authentication');
 
+        //carrega o componente de autorização
         //$this->loadComponent('Authorization.Authorization');
 
 
