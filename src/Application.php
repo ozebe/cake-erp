@@ -29,6 +29,13 @@ use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Middleware\AuthenticationMiddleware;
 use Psr\Http\Message\ServerRequestInterface;
+
+//use Authorization\AuthorizationService;
+//use Authorization\AuthorizationServiceInterface;
+//use Authorization\AuthorizationServiceProviderInterface;
+//use Authorization\Middleware\AuthorizationMiddleware;
+//use Authorization\Policy\OrmResolver;
+//use Psr\Http\Message\ResponseInterface;
 /**
  * Application setup class.
  *
@@ -36,6 +43,7 @@ use Psr\Http\Message\ServerRequestInterface;
  * want to use in your application.
  */
 class Application extends BaseApplication implements AuthenticationServiceProviderInterface
+    //, AuthorizationServiceProviderInterface
 {
 
     /**
@@ -82,6 +90,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         parent::bootstrap();
 
         $this->addPlugin('Authentication');
+        //$this->addPlugin('Authorization');
 
         if (PHP_SAPI === 'cli') {
             $this->bootstrapCli();
@@ -131,7 +140,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Authentication should be added *after* RoutingMiddleware.
         // So that subdirectory information and routes are loaded.
         $middlewareQueue->add($authentication);
-
+        // Add authorization (after authentication if you are using that plugin too).
+        //$middlewareQueue->add(new AuthorizationMiddleware($this));
         return $middlewareQueue;
     }
 
@@ -154,4 +164,13 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
         // Load more plugins here
     }
+    /**
+     * @inheritDoc
+     */
+   // public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
+    //{
+    //    $resolver = new OrmResolver();
+
+    //    return new AuthorizationService($resolver);
+    //}
 }
