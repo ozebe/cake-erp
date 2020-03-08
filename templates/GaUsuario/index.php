@@ -22,8 +22,19 @@
                 <tr>
                     <td><?= h($gaUsuario->nome) ?></td>
                     <td><?= h($gaUsuario->usuario) ?></td>
-                    <td><?= h (boolval($gaUsuario->bloqueado) ? 'Sim' : 'Não') ?></td>
-                    <td><?= h (boolval($gaUsuario->ativo) ? 'Sim' : 'Não') ?></td>
+                    <?php
+                    if($gaUsuario->bloqueado){
+                       echo '<td><span class="chip red lighten-5"><span class="red-text">Sim</span></span></td>';
+                    } else{
+                        echo '<td><span class="chip green lighten-5"><span class="green-text">Não</span></span></td>';
+                    }
+                    if($gaUsuario->ativo){
+                        echo '<td><span class="chip green lighten-5"><span class="green-text">Sim</span></span></td>';
+                    } else{
+                        echo '<td><span class="chip red lighten-5"><span class="red-text">Não</span></span></td>';
+                    }
+                    ?>
+
                     <td class="actions">
                         <?= $this->Html->link('<i class="material-icons">visibility</i>',
                             ['action' => 'view', $gaUsuario->id],
