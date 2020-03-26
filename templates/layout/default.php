@@ -53,7 +53,6 @@ $cakeDescription = 'CakeERP';
             <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <a href="#" class="brand-logo menu" >Menu</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#!">Gestão de acesso</a></li>
                 <li><a href="#!"><i class="material-icons">more_vert</i></a></li>
             </ul>
         </div>
