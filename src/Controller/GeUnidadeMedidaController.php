@@ -14,12 +14,13 @@ use Cake\Http\Exception\ForbiddenException;
  */
 class GeUnidadeMedidaController extends AppController
 {
+    //Apenas o usuário administrador pode criar/editar/excluir unidades de medida
     public function autorizado(){
         foreach($this->nivelUsuario as $nivel){
-            if(($nivel->ga_nivel_acesso->sigla == "ADM") OR ($nivel->ga_nivel_acesso->sigla == "GE")){
+            if($nivel->ga_nivel_acesso->sigla == "ADM"){
                 return true;
                 break;
-            } else {
+            }else {
                 return false;
                 break;
             }
@@ -38,8 +39,6 @@ class GeUnidadeMedidaController extends AppController
         }else {
             throw new ForbiddenException(__('Você não possui acesso a este módulo'));
         }
-
-
     }
 
     /**
