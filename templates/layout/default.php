@@ -94,6 +94,28 @@ $cakeDescription = 'CakeERP';
 </ul>
 <!----------------------------------->
 
+<!-- Dropdown Gestão de estoque administrador-->
+<ul id='dropdown-ge-adm' class='dropdown-content'>
+    <li>
+        <?= $this->Html->link('Unidades de medida<i class="material-icons">list</i>',
+            ['controller' => 'GeUnidadeMedida', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
+</ul>
+<!----------------------------------->
+
+<!-- Dropdown Gestão de estoque-->
+<ul id='dropdown-ge' class='dropdown-content'>
+    <li>
+        <?= $this->Html->link('produtos<i class="material-icons">list</i>',
+            ['controller' => 'GeUnidadeMedida', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
+</ul>
+<!----------------------------------->
+
 <!--NAV BAR COM SLIDE-->
 <ul id="slide-out" class="sidenav">
     <li><div class="user-view">
@@ -122,10 +144,15 @@ $cakeDescription = 'CakeERP';
             //se o usuário for administrador libera todos os módulos
             if($niveis->ga_nivel_acesso->sigla == "ADM"){
                 echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga-adm"><i class="material-icons">group</i>Gestão de acesso</a></li>';
+                echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ge-adm"><i class="material-icons">store</i>Gestão de estoque</a></li>';
+
                 break;
              //se o usuário estiver no gestão de acesso
             }elseif($niveis->ga_nivel_acesso->sigla == "GA"){
                 echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga"><i class="material-icons">group</i>Gestão de acesso</a></li>';
+
+            }elseif($niveis->ga_nivel_acesso->sigla == "GE"){
+                echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ge"><i class="material-icons">store</i>Gestão de estoque</a></li>';
 
             }
         }
