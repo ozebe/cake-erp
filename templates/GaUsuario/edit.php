@@ -10,7 +10,6 @@
     <div class="column-responsive column-80">
         <div class="gaUsuario form content">
             <?= $this->Form->create($gaUsuario) ?>
-                <legend><?= __('Editar usuário') ?></legend>
                 <?php
 
                 echo '<div class="input-field">';
