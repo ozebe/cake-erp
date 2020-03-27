@@ -5,30 +5,48 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $geUnidadeMedida->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $geUnidadeMedida->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Ge Unidade Medida'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="geUnidadeMedida form content">
-            <?= $this->Form->create($geUnidadeMedida) ?>
-            <fieldset>
-                <legend><?= __('Edit Ge Unidade Medida') ?></legend>
+    <h4 class="heading"><?= __('Editar unidade de medida') ?></h4>
+    <div class="card-panel">
+        <div class="column-responsive column-80">
+            <div class="geUnidadeMedida form content">
+                <?= $this->Form->create($geUnidadeMedida) ?>
                 <?php
-                    echo $this->Form->control('descricao');
-                    echo $this->Form->control('criado');
-                    echo $this->Form->control('editado');
+
+                echo '<div class="input-field">';
+                echo '<i class="material-icons prefix">notes</i>';
+                echo $this->Form->text('descricao', array("id" =>"descricao"));
+                echo '<label for="descricao">';echo $this->Form->label("descricao", "Descrição");echo '</label>';
+                echo '</div>';
                 ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+
+                <?= $this->Form->button(__('Salvar'),['class' => 'waves-effect waves-light btn', 'escape' => false]) ?>
+                <?= $this->Form->end() ?>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Botão flutuante com opção de ir para o index e apagar, para utilizar no edit-->
+<div class="fixed-action-btn horizontal">
+    <a class="btn-floating waves-effect waves-light btn-large orange darken-1">
+        <i class="large material-icons">build</i>
+    </a>
+    <ul>
+        <li> <!-- botão flutuante de excluir-->
+            <?= $this->Form->postLink('<i class="material-icons">delete</i>',
+                ['action' => 'delete', $geUnidadeMedida->id],
+                ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light red']
+
+            );?>
+        </li>
+
+        <li> <!-- botão flutuante de listar-->
+            <?= $this->Html->link('<i class="material-icons">list</i>',
+                ['action' => 'index'],
+                ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light green darken-1']
+            );?>
+        </li>
+    </ul>
+</div>
+
+
