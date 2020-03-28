@@ -34,6 +34,8 @@
           var instance = M.Sidenav.getInstance(elem);
           instance.open();
       });
+
+      $('input#descricao, textarea#descricao, input#sigla, input#nome, input#usuario').characterCounter();
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
