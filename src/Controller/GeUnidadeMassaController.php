@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Exception\ForbiddenException;
 /**
  * GeUnidadeMassa Controller
  *
@@ -12,6 +13,19 @@ namespace App\Controller;
  */
 class GeUnidadeMassaController extends AppController
 {
+
+    //Apenas o usuário administrador pode criar/editar/excluir unidades de massa
+    public function autorizado(){
+        foreach($this->nivelUsuario as $nivel){
+            if($nivel->ga_nivel_acesso->sigla == "ADM"){
+                return true;
+                break;
+            }else {
+                return false;
+                break;
+            }
+        }
+    }
     /**
      * Index method
      *
@@ -19,9 +33,12 @@ class GeUnidadeMassaController extends AppController
      */
     public function index()
     {
-        $geUnidadeMassa = $this->paginate($this->GeUnidadeMassa);
-
-        $this->set(compact('geUnidadeMassa'));
+        if($this->autorizado()){
+            $geUnidadeMassa = $this->paginate($this->GeUnidadeMassa);
+            $this->set(compact('geUnidadeMassa'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 
     /**
@@ -33,11 +50,15 @@ class GeUnidadeMassaController extends AppController
      */
     public function view($id = null)
     {
-        $geUnidadeMassa = $this->GeUnidadeMassa->get($id, [
-            'contain' => [],
-        ]);
+        if($this->autorizado()){
+            $geUnidadeMassa = $this->GeUnidadeMassa->get($id, [
+                'contain' => [],
+            ]);
 
-        $this->set('geUnidadeMassa', $geUnidadeMassa);
+            $this->set('geUnidadeMassa', $geUnidadeMassa);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 
     /**
@@ -47,17 +68,21 @@ class GeUnidadeMassaController extends AppController
      */
     public function add()
     {
-        $geUnidadeMassa = $this->GeUnidadeMassa->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $geUnidadeMassa = $this->GeUnidadeMassa->patchEntity($geUnidadeMassa, $this->request->getData());
-            if ($this->GeUnidadeMassa->save($geUnidadeMassa)) {
-                $this->Flash->success(__('The ge unidade massa has been saved.'));
+        if($this->autorizado()){
+            $geUnidadeMassa = $this->GeUnidadeMassa->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $geUnidadeMassa = $this->GeUnidadeMassa->patchEntity($geUnidadeMassa, $this->request->getData());
+                if ($this->GeUnidadeMassa->save($geUnidadeMassa)) {
+                    $this->Flash->success(__('Unidade de massa salva com sucesso'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('A unidade de massa não pode ser salva. Por favor tente novamente!'));
             }
-            $this->Flash->error(__('The ge unidade massa could not be saved. Please, try again.'));
+            $this->set(compact('geUnidadeMassa'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
         }
-        $this->set(compact('geUnidadeMassa'));
     }
 
     /**
@@ -69,19 +94,23 @@ class GeUnidadeMassaController extends AppController
      */
     public function edit($id = null)
     {
-        $geUnidadeMassa = $this->GeUnidadeMassa->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $geUnidadeMassa = $this->GeUnidadeMassa->patchEntity($geUnidadeMassa, $this->request->getData());
-            if ($this->GeUnidadeMassa->save($geUnidadeMassa)) {
-                $this->Flash->success(__('The ge unidade massa has been saved.'));
+        if($this->autorizado()){
+            $geUnidadeMassa = $this->GeUnidadeMassa->get($id, [
+                'contain' => [],
+            ]);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $geUnidadeMassa = $this->GeUnidadeMassa->patchEntity($geUnidadeMassa, $this->request->getData());
+                if ($this->GeUnidadeMassa->save($geUnidadeMassa)) {
+                    $this->Flash->success(__('Unidade de massa editada com sucesso'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('A unidade de massa não pode ser editada. Por favor tente novamente!'));
             }
-            $this->Flash->error(__('The ge unidade massa could not be saved. Please, try again.'));
+            $this->set(compact('geUnidadeMassa'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
         }
-        $this->set(compact('geUnidadeMassa'));
     }
 
     /**
@@ -93,14 +122,18 @@ class GeUnidadeMassaController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $geUnidadeMassa = $this->GeUnidadeMassa->get($id);
-        if ($this->GeUnidadeMassa->delete($geUnidadeMassa)) {
-            $this->Flash->success(__('The ge unidade massa has been deleted.'));
-        } else {
-            $this->Flash->error(__('The ge unidade massa could not be deleted. Please, try again.'));
-        }
+        if($this->autorizado()){
+            $this->request->allowMethod(['post', 'delete']);
+            $geUnidadeMassa = $this->GeUnidadeMassa->get($id);
+            if ($this->GeUnidadeMassa->delete($geUnidadeMassa)) {
+                $this->Flash->success(__('A unidade de massa foi excluída'));
+            } else {
+                $this->Flash->error(__('A unidade de massa não pode ser excluída. Por favor tente novamente'));
+            }
 
-        return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 }

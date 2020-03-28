@@ -101,11 +101,11 @@ class GeUnidadeMedidaController extends AppController
             if ($this->request->is(['patch', 'post', 'put'])) {
                 $geUnidadeMedida = $this->GeUnidadeMedida->patchEntity($geUnidadeMedida, $this->request->getData());
                 if ($this->GeUnidadeMedida->save($geUnidadeMedida)) {
-                    $this->Flash->success(__('Unidade de medida salva com sucesso'));
+                    $this->Flash->success(__('Unidade de medida editada com sucesso'));
 
                     return $this->redirect(['action' => 'index']);
                 }
-                $this->Flash->error(__('A unidade de medida não pode ser salva. Por favor tente novamente!'));
+                $this->Flash->error(__('A unidade de medida não pode ser editada. Por favor tente novamente!'));
             }
             $this->set(compact('geUnidadeMedida'));
         }else {
