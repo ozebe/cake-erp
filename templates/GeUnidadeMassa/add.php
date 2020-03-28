@@ -1,29 +1,39 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\GeUnidadeMassa $geUnidadeMassa
+ * @var \App\Model\Entity\GeUnidadeMedida $geUnidadeMassa
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Ge Unidade Massa'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="geUnidadeMassa form content">
-            <?= $this->Form->create($geUnidadeMassa) ?>
-            <fieldset>
-                <legend><?= __('Add Ge Unidade Massa') ?></legend>
+    <h4 class="heading"><?= __('Cadastro de unidades de massa') ?></h4>
+    <div class="card-panel">
+        <div class="column-responsive column-80">
+            <div class="geUnidadeMassa form content">
+                <?= $this->Form->create($geUnidadeMassa) ?>
                 <?php
-                    echo $this->Form->control('descricao');
-                    echo $this->Form->control('criado');
-                    echo $this->Form->control('editado');
+
+                echo '<div class="input-field">';
+                echo '<i class="material-icons prefix">notes</i>';
+                echo $this->Form->text('descricao', array("id" =>"descricao", "data-length" => "255"));
+                echo '<label for="descricao">';echo $this->Form->label("descricao", "Descrição");echo '</label>';
+                echo '</div>';
+
+                echo '<br>';
                 ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+
+                <?= $this->Form->button(__('Salvar'),['class' => 'waves-effect waves-light btn', 'escape' => false]) ?>
+                <?= $this->Form->end() ?>
+            </div>
         </div>
     </div>
+</div>
+
+<!-- Botão flutuante listar-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">list</i>',
+        ['action' => 'index'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-1']
+    );?>
+</div>
+
 </div>

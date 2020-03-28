@@ -14,7 +14,7 @@
 
                 echo '<div class="input-field">';
                 echo '<i class="material-icons prefix">notes</i>';
-                echo $this->Form->text('descricao', array("id" =>"descricao"));
+                echo $this->Form->text('descricao', array("id" =>"descricao", "data-length" => "255"));
                 echo '<label for="descricao">';echo $this->Form->label("descricao", "Descrição");echo '</label>';
                 echo '</div>';
                 ?>

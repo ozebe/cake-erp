@@ -14,13 +14,13 @@
 
             echo '<div class="input-field">';
             echo '<i class="material-icons prefix">face</i>';
-            echo $this->Form->text('nome', array("id" =>"nome"));
+            echo $this->Form->text('nome', array("id" =>"nome", "data-length" => "255"));
             echo '<label for="nome">';echo $this->Form->label("nome", "Nome");echo '</label>';
             echo '</div>';
 
             echo '<div class="input-field">';
             echo '<i class="material-icons prefix">account_circle</i>';
-            echo $this->Form->text('usuario', array("id" =>"usuario"));
+            echo $this->Form->text('usuario', array("id" =>"usuario", "data-length" => "255"));
             echo '<label for="usuario">';echo $this->Form->label("usuario", "Usuário");echo '</label>';
             echo '</div>';
 
