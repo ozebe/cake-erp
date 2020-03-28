@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\GeUnidadeMedida[]|\Cake\Collection\CollectionInterface $geUnidadeMassa
+ * @var \App\Model\Entity\GeUnidadeMassa[]|\Cake\Collection\CollectionInterface $geUnidadeMassa
  */
 ?>
 <div class="geUnidadeMedida index content">

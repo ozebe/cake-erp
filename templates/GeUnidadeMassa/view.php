@@ -2,7 +2,7 @@
 
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\GeUnidadeMedida $geUnidadeMassa
+ * @var \App\Model\Entity\GeUnidadeMassa $geUnidadeMassa
  */
 ?>
 <div class="row">
