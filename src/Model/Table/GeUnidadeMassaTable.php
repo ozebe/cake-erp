@@ -35,6 +35,15 @@ class GeUnidadeMassaTable extends Table
         $this->setTable('ge_unidade_massa');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'criado' => 'new',
+                    'editado' => 'always',
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -56,14 +65,6 @@ class GeUnidadeMassaTable extends Table
             ->notEmptyString('descricao')
             ->add('descricao', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
-        $validator
-            ->dateTime('criado')
-            ->requirePresence('criado', 'create')
-            ->notEmptyDateTime('criado');
-
-        $validator
-            ->dateTime('editado')
-            ->allowEmptyDateTime('editado');
 
         return $validator;
     }
