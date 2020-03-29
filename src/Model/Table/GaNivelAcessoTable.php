@@ -36,7 +36,10 @@ class GaNivelAcessoTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('GaNivelUsuario')
+        $this->hasMany('GaNivelUsuario', [
+            'dependent' => true,
+            'cascadeCallbacks' => true,
+        ])
             ->setForeignKey('id_nivel_acesso');
     }
 
@@ -57,7 +60,7 @@ class GaNivelAcessoTable extends Table
             ->maxLength('sigla', 3)
             ->requirePresence('sigla', 'create')
             ->notEmptyString('sigla')
-            ->add('sigla', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('sigla', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message' => 'Já existe um cadastro com a mesma sigla!']);
 
         $validator
             ->scalar('descricao')
