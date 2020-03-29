@@ -100,14 +100,20 @@ $cakeDescription = 'CakeERP';
 <!-- Dropdown Gestão de estoque administrador-->
 <ul id='dropdown-ge-adm' class='dropdown-content'>
     <li>
-        <?= $this->Html->link('Unidades de medida<i class="material-icons">build</i>',
+        <?= $this->Html->link('Unidades de medida<i class="material-icons">straighten</i>',
             ['controller' => 'GeUnidadeMedida', 'action' => 'index'],
             ['escape' => false]
         );?>
     </li>
     <li>
-        <?= $this->Html->link('Unidades de massa<i class="material-icons">build</i>',
+        <?= $this->Html->link('Unidades de massa<i class="material-icons">fitness_center</i>',
             ['controller' => 'GeUnidadeMassa', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
+    <li>
+        <?= $this->Html->link('Estoques<i class="material-icons">view_module</i>',
+            ['controller' => 'GeEstoque', 'action' => 'index'],
             ['escape' => false]
         );?>
     </li>
