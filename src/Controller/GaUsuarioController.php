@@ -104,11 +104,16 @@ class GaUsuarioController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('O usuário não pode ser salvo. Por favor tente novamente!'));
+                $validationErrors = $gaUsuario->getErrors();
+                foreach($validationErrors as $assoc) {
+                    foreach ($assoc as $k => $v) {
+                        $this->Flash->error(__($v));
+                    }
+                }
             }
             $this->set(compact('gaUsuario'));
         }else {
             throw new ForbiddenException(__('Você não possui acesso a este módulo'));
-            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
         }
 
 
@@ -135,11 +140,16 @@ class GaUsuarioController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('O usuário não pode ser salvo. Por favor tente novamente!'));
+                $validationErrors = $gaUsuario->getErrors();
+                foreach($validationErrors as $assoc) {
+                    foreach ($assoc as $k => $v) {
+                        $this->Flash->error(__($v));
+                    }
+                }
             }
             $this->set(compact('gaUsuario'));
         }else {
             throw new ForbiddenException(__('Você não possui acesso a este módulo'));
-            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
         }
     }
 
