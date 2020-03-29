@@ -117,6 +117,12 @@ class GaNivelAcessoController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('O nível de acesso não pode ser salvo. Por favor tente novamente!'));
+                $validationErrors = $gaNivelAcesso->getErrors();
+                foreach($validationErrors as $assoc) {
+                    foreach ($assoc as $k => $v) {
+                        $this->Flash->error(__($v));
+                    }
+                }
             }
             $this->set(compact('gaNivelAcesso'));
         }else {
