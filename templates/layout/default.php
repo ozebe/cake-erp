@@ -24,6 +24,7 @@ $cakeDescription = 'CakeERP';
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <!-- <meta name="theme-color" content="#000051"> muda a cor da barra no mobile-->
+    <meta name="theme-color" content="#232F34">
     <title>
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
@@ -34,8 +35,10 @@ $cakeDescription = 'CakeERP';
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
     <?= $this->Html->css('materialize.min.css') ?>
+    <?= $this->Html->css('base.css') ?>
 
 
     <?= $this->Html->script('jquery-3.4.1.min.js'); ?>
@@ -108,14 +111,20 @@ $cakeDescription = 'CakeERP';
             ['escape' => false]
         );?>
     </li>
+    <li>
+        <?= $this->Html->link('Grupos de produtos<i class="material-icons">book</i>',
+            ['controller' => 'GeGrupoProd', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
 </ul>
 <!----------------------------------->
 
 <!-- Dropdown Gestão de estoque-->
 <ul id='dropdown-ge' class='dropdown-content'>
     <li>
-        <?= $this->Html->link('produtos<i class="material-icons">list</i>',
-            ['controller' => 'GeUnidadeMedida', 'action' => 'index'],
+        <?= $this->Html->link('Grupos de produtos<i class="material-icons">book</i>',
+            ['controller' => 'GeGrupoProd', 'action' => 'index'],
             ['escape' => false]
         );?>
     </li>
@@ -125,7 +134,7 @@ $cakeDescription = 'CakeERP';
 <!--NAV BAR COM SLIDE-->
 <ul id="slide-out" class="sidenav">
     <li><div class="user-view">
-            <div class="background green darken-3">
+            <div class="background blue-grey darken-3">
                <!-- <img src="images/side_wallpaper.jpg"> -->
             </div>
             <!-- <a href="#user"><img class="circle" src="images/yuna.jpg"></a> -->
@@ -159,7 +168,6 @@ $cakeDescription = 'CakeERP';
 
             }elseif($niveis->ga_nivel_acesso->sigla == "GE"){
                 echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ge"><i class="material-icons">store</i>Gestão de estoque</a></li>';
-
             }
         }
         echo '<li><div class="divider"></div></li>';

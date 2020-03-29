@@ -6,7 +6,7 @@
  */
 ?>
 <div class="row">
-    <h4 class="heading"><?= __('Visualizar unidade de massa') ?></h4>
+    <h5 class="heading"><b><?= __('Visualizar unidade de massa') ?></b></h5>
     <div class="column-responsive column-80">
         <div class="geUnidadeMassa view content">
             <table class="striped">
@@ -15,7 +15,7 @@
                     <td><?= $this->Number->format($geUnidadeMassa->id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Descricao') ?></th>
+                    <th><?= __('Descrição') ?></th>
                     <td><?= h($geUnidadeMassa->descricao) ?></td>
                 </tr>
                 <tr>
@@ -36,7 +36,7 @@
         </a>
         <ul>
             <li> <!-- botão flutuante de excluir-->
-                <?= $this->Form->postLink('<i class="material-icons">delete</i>',
+                <?= $this->Form->postLink('<i class="material-icons" style="color: white">delete</i>',
                     ['action' => 'delete', $geUnidadeMassa->id],
                     ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light red']
 
@@ -44,14 +44,14 @@
             </li>
 
             <li> <!-- botão flutuante de editar-->
-                <?= $this->Html->link('<i class="material-icons">edit</i>',
+                <?= $this->Html->link('<i class="material-icons" style="color: white">edit</i>',
                     ['action' => 'edit', $geUnidadeMassa->id],
                     ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light cyan darken-2']
                 );?>
             </li>
 
             <li>
-                <?= $this->Html->link('<i class="material-icons">list</i>',
+                <?= $this->Html->link('<i class="material-icons" style="color: white">list</i>',
                     ['action' => 'index'],
                     ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light green darken-1']
                 );?>

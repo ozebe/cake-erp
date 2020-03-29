@@ -6,7 +6,7 @@
  */
 ?>
 <div class="row">
-            <h4 class="heading"><?= __('Visualizar nível por usuário') ?></h4>
+    <h5 class="heading"><b><?= __('Visualizar nível por usuário') ?></b></h5>
     <div class="column-responsive column-80">
         <div class="gaNivelUsuario view content">
             <table class="striped">
@@ -15,7 +15,7 @@
                     <td><?= h($query->ga_usuario->usuario)?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Nivel Acesso') ?></th>
+                    <th><?= __('Nivel de Acesso') ?></th>
                     <td><?= h($query->ga_nivel_acesso->descricao)?></td>
                 </tr>
             </table>
@@ -30,7 +30,7 @@
     </a>
     <ul>
         <li> <!-- botão flutuante de excluir-->
-            <?= $this->Form->postLink('<i class="material-icons">delete</i>',
+            <?= $this->Form->postLink('<i class="material-icons" style="color: white">delete</i>',
                 ['action' => 'delete', $gaNivelUsuario->id],
                 ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light red']
 
@@ -38,14 +38,14 @@
         </li>
 
         <li> <!-- botão flutuante de editar-->
-            <?= $this->Html->link('<i class="material-icons">edit</i>',
+            <?= $this->Html->link('<i class="material-icons" style="color: white">edit</i>',
                 ['action' => 'edit', $gaNivelUsuario->id],
                 ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light cyan darken-2']
             );?>
         </li>
 
         <li>
-            <?= $this->Html->link('<i class="material-icons">list</i>',
+            <?= $this->Html->link('<i class="material-icons" style="color: white">list</i>',
                 ['action' => 'index'],
                 ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light green darken-1']
             );?>

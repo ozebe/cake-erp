@@ -6,7 +6,7 @@
  */
 ?>
 <div class="row">
-            <h4 class="heading"><?= __('Visualizar usuário') ?></h4>
+            <h5 class="heading"><b><?= __('Visualizar usuário') ?></b></h5>
     <div class="column-responsive column-80">
         <div class="gaUsuario view content">
             <table class="striped">
@@ -15,7 +15,7 @@
                     <td><?= h($gaUsuario->nome) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Usuario') ?></th>
+                    <th><?= __('Usuário') ?></th>
                     <td><?= h($gaUsuario->usuario) ?></td>
                 </tr>
                 <tr>
@@ -52,7 +52,7 @@
         </a>
         <ul>
             <li> <!-- botão flutuante de excluir-->
-                <?= $this->Form->postLink('<i class="material-icons">delete</i>',
+                <?= $this->Form->postLink('<i class="material-icons" style="color: white;">delete</i>',
                     ['action' => 'delete', $gaUsuario->id],
                     ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light red']
 
@@ -60,14 +60,14 @@
             </li>
 
             <li> <!-- botão flutuante de editar-->
-                <?= $this->Html->link('<i class="material-icons">edit</i>',
+                <?= $this->Html->link('<i class="material-icons" style="color: white;">edit</i>',
                     ['action' => 'edit', $gaUsuario->id],
                     ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light cyan darken-2']
                 );?>
             </li>
 
             <li>
-                <?= $this->Html->link('<i class="material-icons">list</i>',
+                <?= $this->Html->link('<i class="material-icons" style="color: white;">list</i>',
                     ['action' => 'index'],
                     ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light green darken-1']
                 );?>

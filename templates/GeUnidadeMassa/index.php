@@ -5,7 +5,7 @@
  */
 ?>
 <div class="geUnidadeMedida index content">
-    <h4><?= __('Unidades de massa') ?></h4>
+    <h5><b><?= __('Unidades de massa') ?></b></h5>
     <div class="table-responsive">
         <table class="striped">
             <thead>
@@ -24,7 +24,7 @@
                     <td class="actions">
                         <?= $this->Html->link('<i class="material-icons">visibility</i>',
                             ['action' => 'view', $geUnidadeMassa->id],
-                            ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light green darken-1']
+                            ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light']
                         );?>
                     </td>
                 </tr>
@@ -57,6 +57,6 @@
 <div class="fixed-action-btn horizontal">
     <?= $this->Html->link('<i class="material-icons">add</i>',
         ['action' => 'add'],
-        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-4']
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
     );?>
 </div>

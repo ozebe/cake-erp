@@ -5,7 +5,7 @@
  */
 ?>
 <div class="row">
-            <h4 class="heading"><?= __('Editar usuário') ?></h4>
+    <h5 class="heading"><b><?= __('Editar usuário') ?></b></h5>
     <div class="card-panel">
     <div class="column-responsive column-80">
         <div class="gaUsuario form content">
@@ -72,7 +72,7 @@
     </a>
     <ul>
         <li> <!-- botão flutuante de excluir-->
-            <?= $this->Form->postLink('<i class="material-icons">delete</i>',
+            <?= $this->Form->postLink('<i class="material-icons" style="color: white;">delete</i>',
                 ['action' => 'delete', $gaUsuario->id],
                 ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light red']
 
@@ -80,7 +80,7 @@
         </li>
 
         <li> <!-- botão flutuante de listar-->
-            <?= $this->Html->link('<i class="material-icons">list</i>',
+            <?= $this->Html->link('<i class="material-icons" style="color: white;">list</i>',
                 ['action' => 'index'],
                 ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light green darken-1']
             );?>

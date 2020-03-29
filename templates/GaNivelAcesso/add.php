@@ -40,6 +40,6 @@
 <div class="fixed-action-btn horizontal">
     <?= $this->Html->link('<i class="material-icons">list</i>',
         ['action' => 'index'],
-        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-1']
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
     );?>
 </div>

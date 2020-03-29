@@ -5,12 +5,11 @@
  */
 ?>
 <div class="gaUsuario index content">
-    <h4><?= __('Usuários do sistema') ?></h4>
+    <h5><b><?= __('Usuários do sistema') ?></b></h5>
     <div class="table-responsive">
         <table class="striped">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('nome') ?></th>
                     <th><?= $this->Paginator->sort('usuario') ?></th>
                     <th><?= $this->Paginator->sort('bloqueado') ?></th>
                     <th><?= $this->Paginator->sort('ativo') ?></th>
@@ -20,7 +19,6 @@
             <tbody>
                 <?php foreach ($gaUsuario as $gaUsuario): ?>
                 <tr>
-                    <td><?= h($gaUsuario->nome) ?></td>
                     <td><?= h($gaUsuario->usuario) ?></td>
                     <?php
                     if($gaUsuario->bloqueado){
@@ -38,7 +36,7 @@
                     <td class="actions">
                         <?= $this->Html->link('<i class="material-icons">visibility</i>',
                             ['action' => 'view', $gaUsuario->id],
-                            ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light green darken-1']
+                            ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light']
                         );?>
                     </td>
                 </tr>
@@ -71,6 +69,6 @@
 <div class="fixed-action-btn horizontal">
     <?= $this->Html->link('<i class="material-icons">add</i>',
         ['action' => 'add'],
-        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-4']
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
     );?>
 </div>

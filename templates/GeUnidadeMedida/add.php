@@ -5,7 +5,7 @@
  */
 ?>
 <div class="row">
-    <h4 class="heading"><?= __('Cadastro de unidades de medida') ?></h4>
+    <h5 class="heading"><b><?= __('Cadastro de unidades de medida') ?></b></h5>
     <div class="card-panel">
         <div class="column-responsive column-80">
             <div class="geUnidadeMedida form content">
@@ -32,7 +32,7 @@
 <div class="fixed-action-btn horizontal">
     <?= $this->Html->link('<i class="material-icons">list</i>',
         ['action' => 'index'],
-        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-1']
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
     );?>
 </div>
 

@@ -6,7 +6,7 @@
  */
 ?>
 <div class="gaNivelUsuario index content">
-    <h4><?= __('Usuarios e niveis de acesso') ?></h4>
+    <h5><b><?= __('Usuarios e niveis de acesso') ?></b></h5>
     <div class="table-responsive">
     <table class="striped">
         <thead>
@@ -24,10 +24,10 @@
                 <td class="actions">
                     <?= $this->Html->link('<i class="material-icons">visibility</i>',
                         ['action' => 'view', $q->id],
-                        ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light green darken-1']
+                        ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light']
                     );?>
 
-                    <?= $this->Form->postLink('<i class="material-icons">delete</i>',
+                    <?= $this->Form->postLink('<i class="material-icons" style="color: white;">delete</i>',
                         ['action' => 'delete', $q->id],
                         ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light red']
 
@@ -64,6 +64,6 @@
 <div class="fixed-action-btn horizontal">
     <?= $this->Html->link('<i class="material-icons">add</i>',
         ['action' => 'add'],
-        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light green darken-4']
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
     );?>
 </div>
