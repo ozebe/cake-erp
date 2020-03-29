@@ -2,35 +2,50 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\GeSubGrupoProd $geSubGrupoProd
+ * @var \App\Model\Entity\GeSubGrupoProd $grupo
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $geSubGrupoProd->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $geSubGrupoProd->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Ge Sub Grupo Prod'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="geSubGrupoProd form content">
-            <?= $this->Form->create($geSubGrupoProd) ?>
-            <fieldset>
-                <legend><?= __('Edit Ge Sub Grupo Prod') ?></legend>
+    <h5 class="heading"><b><?= __('Editar subgrupo de produto') ?></b></h5>
+    <div class="card-panel">
+        <div class="column-responsive column-80">
+            <div class="geSubGrupoProd form content">
+                <?= $this->Form->create($geSubGrupoProd) ?>
+
+
                 <?php
-                    echo $this->Form->control('id_ge_grupo_prod');
-                    echo $this->Form->control('codigo');
-                    echo $this->Form->control('descricao');
-                    echo $this->Form->control('criado');
-                    echo $this->Form->control('editado');
+                echo '<label>Grupo de produto</label>';
+                echo $this->Form->select('id_ge_grupo_prod', $grupo);
+
+                echo $this->Form->control('codigo');
+                echo $this->Form->control('descricao');
                 ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+
+                <?= $this->Form->button(__('Salvar'),['class' => 'waves-effect waves-light btn', 'escape' => false]) ?>
+                <?= $this->Form->end() ?>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Botão flutuante com opção de ir para o index e apagar, para utilizar no edit-->
+    <div class="fixed-action-btn horizontal">
+        <a class="btn-floating waves-effect waves-light btn-large orange darken-1">
+            <i class="large material-icons">build</i>
+        </a>
+        <ul>
+            <li> <!-- botão flutuante de excluir-->
+                <?= $this->Form->postLink('<i class="material-icons" style="color: white">delete</i>',
+                    ['action' => 'delete', $geSubGrupoProd->id],
+                    ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light red']
+
+                );?>
+            </li>
+
+            <li> <!-- botão flutuante de listar-->
+                <?= $this->Html->link('<i class="material-icons" style="color: white">list</i>',
+                    ['action' => 'index'],
+                    ['escape' => false, 'class' => 'btn-floating btn-medium waves-effect waves-light green darken-1']
+                );?>
+            </li>
+        </ul>
+    </div>
