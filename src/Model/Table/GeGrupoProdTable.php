@@ -35,6 +35,15 @@ class GeGrupoProdTable extends Table
         $this->setTable('ge_grupo_prod');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'criado' => 'new',
+                    'editado' => 'always',
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -60,15 +69,6 @@ class GeGrupoProdTable extends Table
             ->scalar('descricao')
             ->maxLength('descricao', 255)
             ->allowEmptyString('descricao');
-
-        $validator
-            ->dateTime('criado')
-            ->requirePresence('criado', 'create')
-            ->notEmptyDateTime('criado');
-
-        $validator
-            ->dateTime('editado')
-            ->allowEmptyDateTime('editado');
 
         return $validator;
     }
