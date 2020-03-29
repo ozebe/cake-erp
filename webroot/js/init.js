@@ -35,7 +35,7 @@
           instance.open();
       });
 
-      $('input#descricao, textarea#descricao, input#sigla, input#nome, input#usuario').characterCounter();
+      $('input#descricao, textarea#descricao, input#sigla, input#nome, input#usuario, input#codigo').characterCounter();
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
