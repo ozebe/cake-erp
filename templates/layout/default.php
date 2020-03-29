@@ -117,6 +117,12 @@ $cakeDescription = 'CakeERP';
             ['escape' => false]
         );?>
     </li>
+    <li>
+        <?= $this->Html->link('Subgrupos de produtos<i class="material-icons">bookmarks</i>',
+            ['controller' => 'GeSubGrupoProd', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
 </ul>
 <!----------------------------------->
 
@@ -125,6 +131,12 @@ $cakeDescription = 'CakeERP';
     <li>
         <?= $this->Html->link('Grupos de produtos<i class="material-icons">book</i>',
             ['controller' => 'GeGrupoProd', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
+    <li>
+        <?= $this->Html->link('Subgrupos de produtos<i class="material-icons">bookmarks</i>',
+            ['controller' => 'GeSubGrupoProd', 'action' => 'index'],
             ['escape' => false]
         );?>
     </li>
