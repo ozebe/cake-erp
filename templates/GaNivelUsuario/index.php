@@ -2,7 +2,6 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\GaNivelUsuario[]|\Cake\Collection\CollectionInterface $gaNivelUsuario
- * @var \App\Model\Entity\GaNivelUsuario[]|\Cake\Collection\CollectionInterface $query
  */
 ?>
 <div class="gaNivelUsuario index content">
@@ -11,24 +10,24 @@
     <table class="striped">
         <thead>
         <tr>
-            <th><?= $this->Paginator->sort('Usuario') ?></th>
-            <th><?= $this->Paginator->sort('Nível acesso') ?></th>
+            <th><?= $this->Paginator->sort('id_usuario','Usuario') ?></th>
+            <th><?= $this->Paginator->sort('id_nivel_acesso','Nível acesso') ?></th>
             <th class="actions"><?= __('Ações') ?></th>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($query as $q): ?>
+        <?php foreach ($gaNivelUsuario as $gaNivelUsuario): ?>
             <tr>
-                <td><?= h($q->ga_usuario->usuario)?></td>
-                <td><?= h($q->ga_nivel_acesso->descricao)?></td>
+                <td><?= h($gaNivelUsuario->ga_usuario->usuario)?></td>
+                <td><?= h($gaNivelUsuario->ga_nivel_acesso->descricao)?></td>
                 <td class="actions">
                     <?= $this->Html->link('<i class="material-icons">visibility</i>',
-                        ['action' => 'view', $q->id],
+                        ['action' => 'view', $gaNivelUsuario->id],
                         ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light']
                     );?>
 
                     <?= $this->Form->postLink('<i class="material-icons" style="color: white;">delete</i>',
-                        ['action' => 'delete', $q->id],
+                        ['action' => 'delete', $gaNivelUsuario->id],
                         ['confirm' => 'Deseja realmente excluir?', 'escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light red']
 
                     );?>
