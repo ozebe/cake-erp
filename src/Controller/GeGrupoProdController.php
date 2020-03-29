@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Exception\ForbiddenException;
 /**
  * GeGrupoProd Controller
  *
@@ -12,6 +13,16 @@ namespace App\Controller;
  */
 class GeGrupoProdController extends AppController
 {
+    public function autorizado(){
+        $aut = false;
+        foreach($this->nivelUsuario as $nivel){
+            if(($nivel->ga_nivel_acesso->sigla == "ADM") OR ($nivel->ga_nivel_acesso->sigla == "GE")){
+                $aut = true;
+                break;
+            }
+        }
+        return $aut;
+    }
     /**
      * Index method
      *
@@ -19,9 +30,12 @@ class GeGrupoProdController extends AppController
      */
     public function index()
     {
-        $geGrupoProd = $this->paginate($this->GeGrupoProd);
-
-        $this->set(compact('geGrupoProd'));
+        if($this->autorizado()){
+            $geGrupoProd = $this->paginate($this->GeGrupoProd);
+            $this->set(compact('geGrupoProd'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 
     /**
@@ -33,11 +47,15 @@ class GeGrupoProdController extends AppController
      */
     public function view($id = null)
     {
-        $geGrupoProd = $this->GeGrupoProd->get($id, [
-            'contain' => [],
-        ]);
+        if($this->autorizado()){
+            $geGrupoProd = $this->GeGrupoProd->get($id, [
+                'contain' => [],
+            ]);
 
-        $this->set('geGrupoProd', $geGrupoProd);
+            $this->set('geGrupoProd', $geGrupoProd);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 
     /**
@@ -47,17 +65,21 @@ class GeGrupoProdController extends AppController
      */
     public function add()
     {
-        $geGrupoProd = $this->GeGrupoProd->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $geGrupoProd = $this->GeGrupoProd->patchEntity($geGrupoProd, $this->request->getData());
-            if ($this->GeGrupoProd->save($geGrupoProd)) {
-                $this->Flash->success(__('The ge grupo prod has been saved.'));
+        if($this->autorizado()){
+            $geGrupoProd = $this->GeGrupoProd->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $geGrupoProd = $this->GeGrupoProd->patchEntity($geGrupoProd, $this->request->getData());
+                if ($this->GeGrupoProd->save($geGrupoProd)) {
+                    $this->Flash->success(__('Grupo de produto salvo com sucesso'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('O grupo de produto não pode ser salvo. Por favor tente novamente!'));
             }
-            $this->Flash->error(__('The ge grupo prod could not be saved. Please, try again.'));
+            $this->set(compact('geGrupoProd'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
         }
-        $this->set(compact('geGrupoProd'));
     }
 
     /**
@@ -69,19 +91,23 @@ class GeGrupoProdController extends AppController
      */
     public function edit($id = null)
     {
-        $geGrupoProd = $this->GeGrupoProd->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $geGrupoProd = $this->GeGrupoProd->patchEntity($geGrupoProd, $this->request->getData());
-            if ($this->GeGrupoProd->save($geGrupoProd)) {
-                $this->Flash->success(__('The ge grupo prod has been saved.'));
+        if($this->autorizado()){
+            $geGrupoProd = $this->GeGrupoProd->get($id, [
+                'contain' => [],
+            ]);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $geGrupoProd = $this->GeGrupoProd->patchEntity($geGrupoProd, $this->request->getData());
+                if ($this->GeGrupoProd->save($geGrupoProd)) {
+                    $this->Flash->success(__('Grupo de produto editado com sucesso'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('O grupo de produto não pode se editado. Por favor tente novamente!'));
             }
-            $this->Flash->error(__('The ge grupo prod could not be saved. Please, try again.'));
+            $this->set(compact('geGrupoProd'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
         }
-        $this->set(compact('geGrupoProd'));
     }
 
     /**
@@ -93,14 +119,18 @@ class GeGrupoProdController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $geGrupoProd = $this->GeGrupoProd->get($id);
-        if ($this->GeGrupoProd->delete($geGrupoProd)) {
-            $this->Flash->success(__('The ge grupo prod has been deleted.'));
-        } else {
-            $this->Flash->error(__('The ge grupo prod could not be deleted. Please, try again.'));
-        }
+        if($this->autorizado()){
+            $this->request->allowMethod(['post', 'delete']);
+            $geGrupoProd = $this->GeGrupoProd->get($id);
+            if ($this->GeGrupoProd->delete($geGrupoProd)) {
+                $this->Flash->success(__('O grupo de produto foi excluído'));
+            } else {
+                $this->Flash->error(__('O grupo de produto não pode ser excluído. Por favor tente novamente'));
+            }
 
-        return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 }
