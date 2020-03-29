@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\GeGrupoProd[]|\Cake\Collection\CollectionInterface $geGrupoProd
  */
 ?>
-<div class="geUnidadeMedida index content">
+<div class="geGrupoProd index content">
     <h5><b><?= __('Grupos de produtos') ?></b></h5>
     <div class="table-responsive">
         <table class="striped">
