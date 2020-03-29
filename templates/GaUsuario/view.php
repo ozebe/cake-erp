@@ -36,11 +36,27 @@
                 </tr>
                 <tr>
                     <th><?= __('Bloqueado') ?></th>
-                    <td><?= $gaUsuario->bloqueado ? __('Sim') : __('Não'); ?></td>
+                    <td>
+                        <?php
+                        if($gaUsuario->bloqueado){
+                            echo '<span class="chip red lighten-5"><span class="red-text">Sim</span></span>';
+                        } else{
+                            echo '<span class="chip green lighten-5"><span class="green-text">Não</span></span>';
+                        }
+                        ?>
+                    </td>
                 </tr>
                 <tr>
                     <th><?= __('Ativo') ?></th>
-                    <td><?= $gaUsuario->ativo ? __('Sim') : __('Não'); ?></td>
+                    <td>
+                        <?php
+                        if($gaUsuario->ativo){
+                            echo '<span class="chip green lighten-5"><span class="green-text">Sim</span></span>';
+                        } else{
+                            echo '<span class="chip red lighten-5"><span class="red-text">Não</span></span>';
+                        }
+                        ?>
+                    </td>
                 </tr>
             </table>
         </div>
