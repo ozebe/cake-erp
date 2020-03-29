@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Exception\ForbiddenException;
+
 /**
  * GeEstoque Controller
  *
@@ -12,6 +14,17 @@ namespace App\Controller;
  */
 class GeEstoqueController extends AppController
 {
+    public function autorizado(){
+        $aut = false;
+        foreach($this->nivelUsuario as $nivel){
+            if($nivel->ga_nivel_acesso->sigla == "ADM"){
+                $aut = true;
+                break;
+            }
+        }
+        return $aut;
+    }
+
     /**
      * Index method
      *
@@ -19,9 +32,13 @@ class GeEstoqueController extends AppController
      */
     public function index()
     {
+        if($this->autorizado()){
         $geEstoque = $this->paginate($this->GeEstoque);
 
         $this->set(compact('geEstoque'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 
     /**
@@ -33,11 +50,15 @@ class GeEstoqueController extends AppController
      */
     public function view($id = null)
     {
+        if($this->autorizado()){
         $geEstoque = $this->GeEstoque->get($id, [
             'contain' => [],
         ]);
 
         $this->set('geEstoque', $geEstoque);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 
     /**
@@ -47,17 +68,22 @@ class GeEstoqueController extends AppController
      */
     public function add()
     {
+        if($this->autorizado()){
         $geEstoque = $this->GeEstoque->newEmptyEntity();
         if ($this->request->is('post')) {
             $geEstoque = $this->GeEstoque->patchEntity($geEstoque, $this->request->getData());
             if ($this->GeEstoque->save($geEstoque)) {
-                $this->Flash->success(__('The ge estoque has been saved.'));
+                $this->Flash->success(__('Estoque salvo com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ge estoque could not be saved. Please, try again.'));
+            $this->Flash->error(__('O estoque não pode ser salvo. Por favor tente novamente!'));
         }
         $this->set(compact('geEstoque'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
+
     }
 
     /**
@@ -69,19 +95,23 @@ class GeEstoqueController extends AppController
      */
     public function edit($id = null)
     {
+        if($this->autorizado()){
         $geEstoque = $this->GeEstoque->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $geEstoque = $this->GeEstoque->patchEntity($geEstoque, $this->request->getData());
             if ($this->GeEstoque->save($geEstoque)) {
-                $this->Flash->success(__('The ge estoque has been saved.'));
+                $this->Flash->success(__('Estoque editado com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ge estoque could not be saved. Please, try again.'));
+            $this->Flash->error(__('O estoque não pode ser salvo. Por favor tente novamente!'));
         }
         $this->set(compact('geEstoque'));
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 
     /**
@@ -93,6 +123,7 @@ class GeEstoqueController extends AppController
      */
     public function delete($id = null)
     {
+        if($this->autorizado()){
         $this->request->allowMethod(['post', 'delete']);
         $geEstoque = $this->GeEstoque->get($id);
         if ($this->GeEstoque->delete($geEstoque)) {
@@ -102,5 +133,8 @@ class GeEstoqueController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+        }else {
+            throw new ForbiddenException(__('Você não possui acesso a este módulo'));
+        }
     }
 }
