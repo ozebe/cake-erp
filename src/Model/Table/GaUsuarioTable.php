@@ -76,7 +76,7 @@ class GaUsuarioTable extends Table
             ->maxLength('usuario', 255)
             ->requirePresence('usuario', 'create')
             ->notEmptyString('usuario')
-            ->add('usuario', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('usuario', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message' => 'Já existe um cadastro com o mesmo usuário!']);
 
         $validator
             ->scalar('senha')
