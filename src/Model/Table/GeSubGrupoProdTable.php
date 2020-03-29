@@ -71,7 +71,7 @@ class GeSubGrupoProdTable extends Table
             ->maxLength('codigo', 255)
             ->requirePresence('codigo', 'create')
             ->notEmptyString('codigo')
-            ->add('codigo', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('codigo', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message' => 'Já existe um cadastro com esse código!']);
 
         $validator
             ->scalar('descricao')

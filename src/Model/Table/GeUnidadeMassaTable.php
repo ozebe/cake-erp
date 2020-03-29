@@ -63,7 +63,7 @@ class GeUnidadeMassaTable extends Table
             ->maxLength('descricao', 255)
             ->requirePresence('descricao', 'create')
             ->notEmptyString('descricao')
-            ->add('descricao', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('descricao', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message' => 'Já existe um cadastro com essa descrição!']);
 
 
         return $validator;
