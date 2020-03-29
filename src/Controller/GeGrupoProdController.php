@@ -75,6 +75,12 @@ class GeGrupoProdController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('O grupo de produto não pode ser salvo. Por favor tente novamente!'));
+                $validationErrors = $geGrupoProd->getErrors();
+                foreach($validationErrors as $assoc) {
+                    foreach ($assoc as $k => $v) {
+                        $this->Flash->error(__($v));
+                    }
+                }
             }
             $this->set(compact('geGrupoProd'));
         }else {
@@ -103,6 +109,12 @@ class GeGrupoProdController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('O grupo de produto não pode se editado. Por favor tente novamente!'));
+                $validationErrors = $geGrupoProd->getErrors();
+                foreach($validationErrors as $assoc) {
+                    foreach ($assoc as $k => $v) {
+                        $this->Flash->error(__($v));
+                    }
+                }
             }
             $this->set(compact('geGrupoProd'));
         }else {

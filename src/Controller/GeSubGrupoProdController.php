@@ -77,6 +77,12 @@ class GeSubGrupoProdController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('O subgrupo de produto não pode ser salvo. Por favor tente novamente!'));
+            $validationErrors = $geSubGrupoProd->getErrors();
+            foreach($validationErrors as $assoc) {
+                foreach ($assoc as $k => $v) {
+                    $this->Flash->error(__($v));
+                }
+            }
         }
         $this->set(compact('geSubGrupoProd'));
 
@@ -112,6 +118,12 @@ class GeSubGrupoProdController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('O subgrupo de produto não pode se editado. Por favor tente novamente!'));
+            $validationErrors = $geSubGrupoProd->getErrors();
+            foreach($validationErrors as $assoc) {
+                foreach ($assoc as $k => $v) {
+                    $this->Flash->error(__($v));
+                }
+            }
         }
         $this->set(compact('geSubGrupoProd'));
 

@@ -77,6 +77,12 @@ class GeUnidadeMassaController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('A unidade de massa não pode ser salva. Por favor tente novamente!'));
+                $validationErrors = $geUnidadeMassa->getErrors();
+                foreach($validationErrors as $assoc) {
+                    foreach ($assoc as $k => $v) {
+                        $this->Flash->error(__($v));
+                    }
+                }
             }
             $this->set(compact('geUnidadeMassa'));
         }else {
@@ -105,6 +111,12 @@ class GeUnidadeMassaController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('A unidade de massa não pode ser editada. Por favor tente novamente!'));
+                $validationErrors = $geUnidadeMassa->getErrors();
+                foreach($validationErrors as $assoc) {
+                    foreach ($assoc as $k => $v) {
+                        $this->Flash->error(__($v));
+                    }
+                }
             }
             $this->set(compact('geUnidadeMassa'));
         }else {
