@@ -14,15 +14,14 @@ use Cake\Http\Exception\ForbiddenException;
 class GaNivelAcessoController extends AppController
 {
     public function autorizado(){
+        $aut = false;
         foreach($this->nivelUsuario as $nivel){
-            if(($nivel->ga_nivel_acesso->sigla == "ADM")){
-                return true;
-                break;
-            } else {
-                return false;
+            if($nivel->ga_nivel_acesso->sigla == "ADM"){
+                $aut = true;
                 break;
             }
         }
+        return $aut;
     }
 
     /**

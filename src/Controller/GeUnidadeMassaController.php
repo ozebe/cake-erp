@@ -16,15 +16,14 @@ class GeUnidadeMassaController extends AppController
 
     //Apenas o usuário administrador pode criar/editar/excluir unidades de massa
     public function autorizado(){
+        $aut = false;
         foreach($this->nivelUsuario as $nivel){
             if($nivel->ga_nivel_acesso->sigla == "ADM"){
-                return true;
-                break;
-            }else {
-                return false;
+                $aut = true;
                 break;
             }
         }
+        return $aut;
     }
     /**
      * Index method

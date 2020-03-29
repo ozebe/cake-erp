@@ -15,15 +15,14 @@ use Cake\Http\Exception\ForbiddenException;
 class GaNivelUsuarioController extends AppController
 {
     public function autorizado(){
+        $aut = false;
         foreach($this->nivelUsuario as $nivel){
-            if(($nivel->ga_nivel_acesso->sigla == "ADM")){
-                return true;
-                break;
-            } else {
-                return false;
+            if($nivel->ga_nivel_acesso->sigla == "ADM"){
+                $aut = true;
                 break;
             }
         }
+        return $aut;
     }
     /**
      * Index method
@@ -33,14 +32,13 @@ class GaNivelUsuarioController extends AppController
     public function index()
     {
         if($this->autorizado($this->nivelUsuario)){
-            $query = $this->GaNivelUsuario->find('all')->contain(['GaUsuario', 'GaNivelAcesso']);
-            $this->set('query', $query);
+            //$query = $this->GaNivelUsuario->find('all')->contain(['GaUsuario', 'GaNivelAcesso']);
+            //$this->set('query', $query);
 
-            $gaNivelUsuario = $this->paginate($this->GaNivelUsuario);
+            $gaNivelUsuario = $this->paginate($this->GaNivelUsuario->find('all')->contain(['GaUsuario', 'GaNivelAcesso']));
             $this->set(compact('gaNivelUsuario'));
         }else {
             throw new ForbiddenException(__('Você não possui acesso a este módulo'));
-            //return $this->redirect(['controller' => 'GaUsuario', 'action' => 'logout']);
         }
     }
 

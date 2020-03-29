@@ -16,15 +16,14 @@ class GaUsuarioController extends AppController
 {
 
     public function autorizado(){
+        $aut = false;
         foreach($this->nivelUsuario as $nivel){
             if(($nivel->ga_nivel_acesso->sigla == "ADM") OR ($nivel->ga_nivel_acesso->sigla == "GA")){
-                return true;
-                break;
-            } else {
-                return false;
+                $aut = true;
                 break;
             }
         }
+        return $aut;
     }
 
 
