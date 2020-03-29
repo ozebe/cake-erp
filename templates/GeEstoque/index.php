@@ -5,46 +5,67 @@
  */
 ?>
 <div class="geEstoque index content">
-    <?= $this->Html->link(__('New Ge Estoque'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Ge Estoque') ?></h3>
+    <h5><b><?= __('Estoques') ?></b></h5>
     <div class="table-responsive">
-        <table>
+        <table class="striped">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('descricao') ?></th>
-                    <th><?= $this->Paginator->sort('ativo') ?></th>
-                    <th><?= $this->Paginator->sort('criado') ?></th>
-                    <th><?= $this->Paginator->sort('editado') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
+            <tr>
+                <th><?= $this->Paginator->sort('id') ?></th>
+                <th><?= $this->Paginator->sort('descricao') ?></th>
+                <th><?= $this->Paginator->sort('ativo') ?></th>
+                <th class="actions"><?= __('Ações') ?></th>
+            </tr>
             </thead>
             <tbody>
-                <?php foreach ($geEstoque as $geEstoque): ?>
+            <?php foreach ($geEstoque as $geEstoque): ?>
                 <tr>
-                    <td><?= $this->Number->format($geEstoque->id) ?></td>
+                    <td><?= h($this->Number->format($geEstoque->id)) ?></td>
                     <td><?= h($geEstoque->descricao) ?></td>
-                    <td><?= h($geEstoque->ativo) ?></td>
-                    <td><?= h($geEstoque->criado) ?></td>
-                    <td><?= h($geEstoque->editado) ?></td>
+
+                    <?php
+                    if($geEstoque->ativo){
+                        echo '<td><span class="chip green lighten-5"><span class="green-text">Sim</span></span></td>';
+                    } else{
+                        echo '<td><span class="chip red lighten-5"><span class="red-text">Não</span></span></td>';
+                    }
+                    ?>
+
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $geEstoque->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $geEstoque->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $geEstoque->id], ['confirm' => __('Are you sure you want to delete # {0}?', $geEstoque->id)]) ?>
+                        <?= $this->Html->link('<i class="material-icons">visibility</i>',
+                            ['action' => 'view', $geEstoque->id],
+                            ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light']
+                        );?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+    <!-- paginação -->
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<i class="material-icons">fast_rewind</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->prev('<i class="material-icons">chevron_left</i>',
+                ['escape' => false]
+            );?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next('<i class="material-icons">chevron_right</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->last('<i class="material-icons">fast_forward</i>',
+                ['escape' => false]
+            );?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} no total')) ?></p>
     </div>
+</div>
+
+<!-- Botão flutuante novo-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">add</i>',
+        ['action' => 'add'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
+    );?>
 </div>

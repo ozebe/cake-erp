@@ -5,26 +5,45 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Ge Estoque'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="geEstoque form content">
-            <?= $this->Form->create($geEstoque) ?>
-            <fieldset>
-                <legend><?= __('Add Ge Estoque') ?></legend>
+    <h5 class="heading"><b><?= __('Cadastro de Estoques') ?></b></h5>
+    <div class="card-panel">
+        <div class="column-responsive column-80">
+            <div class="geEstoque form content">
+                <?= $this->Form->create($geEstoque) ?>
                 <?php
-                    echo $this->Form->control('descricao');
-                    echo $this->Form->control('ativo');
-                    echo $this->Form->control('criado');
-                    echo $this->Form->control('editado');
+
+                echo '<div class="input-field">';
+                echo '<i class="material-icons prefix">notes</i>';
+                echo $this->Form->text('descricao', array("id" =>"descricao", "data-length" => "255"));
+                echo '<label for="descricao">';echo $this->Form->label("descricao", "Descrição");echo '</label>';
+                echo '</div>';
+
+                echo 'Ativo';
+                echo '<div class= "switch">';
+                echo '<label>';
+                echo 'Não';
+                echo $this->Form->checkbox('ativo');
+                echo ' <span class="lever"></span>';
+                echo 'Sim';
+                echo '</label>';
+                echo '<div>';
+
+                echo '<br>';
                 ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+
+                <?= $this->Form->button(__('Salvar'),['class' => 'waves-effect waves-light btn', 'escape' => false]) ?>
+                <?= $this->Form->end() ?>
+            </div>
         </div>
     </div>
+</div>
+
+<!-- Botão flutuante listar-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">list</i>',
+        ['action' => 'index'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
+    );?>
+</div>
+
 </div>
