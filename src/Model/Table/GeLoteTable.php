@@ -63,7 +63,7 @@ class GeLoteTable extends Table
             ->maxLength('num_lote', 255)
             ->requirePresence('num_lote', 'create')
             ->notEmptyString('num_lote')
-            ->add('num_lote', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('num_lote', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message' => 'Já existe um cadastro com esse número de lote']);
 
         $validator
             ->scalar('descricao')
