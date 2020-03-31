@@ -17,8 +17,17 @@
                 echo '<label>Grupo de produto</label>';
                 echo $this->Form->select('id_ge_grupo_prod', $grupo);
                 echo '<br>';
-                echo $this->Form->control('codigo');
-                echo $this->Form->control('descricao');
+                echo '<div class="input-field">';
+                echo '<i class="material-icons prefix">short_text</i>';
+                echo $this->Form->text('codigo', array("id" =>"codigo", "data-length" => "255"));
+                echo '<label for="codigo">';echo $this->Form->label("codigo", "Código");echo '</label>';
+                echo '</div>';
+
+                echo '<div class="input-field">';
+                echo '<i class="material-icons prefix">notes</i>';
+                echo $this->Form->text('descricao', array("id" =>"descricao", "data-length" => "255"));
+                echo '<label for="descricao">';echo $this->Form->label("descricao", "Descrição");echo '</label>';
+                echo '</div>';
                 ?>
                 <br>
                 <?= $this->Form->button(__('Salvar'),['class' => 'waves-effect waves-light btn', 'escape' => false]) ?>
