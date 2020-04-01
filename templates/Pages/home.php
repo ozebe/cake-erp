@@ -41,25 +41,19 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
-
     <!-- Carrega os ícones-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
-
     <?= $this->Html->css('materialize.min.css') ?>
-
-
     <?= $this->Html->script('jquery-3.4.1.min.js'); ?>
     <?= $this->Html->script('materialize.min.js'); ?>
     <?= $this->Html->script('init.js'); ?>
-
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-
 <!-- Dropdown Gestão de acesso administrador-->
 <ul id='dropdown-ga-adm' class='dropdown-content'>
     <li>
@@ -84,27 +78,37 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 <!----------------------------------->
 <div class="row">
     <div class="container">
-        <div class="col s12 m6 l3"><p>
+        <div class="col s12 m6 l3">
+
                 <div class="row">
                     <div class="col s12">
                         <div class="card blue-grey darken-1">
                             <div class="card-content white-text">
                                 <span class="card-title">Gestão de acesso</span>
-                                    <p>aa</p>
-                 </div>
-                    <div class="card-action">
-                    <?php
-                         echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga-adm">Gestão de acesso</a></li>';
+                                <i class="medium material-icons">group</i>
+                            </div>
+                            <div class="card-action">
+                            <?php
+                             echo '<a class="dropdown-trigger" href="#!" data-target="dropdown-ga-adm">Gestão de acesso</a>';
+                             ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    ?>
-                </div>
-                </div>
+        </div>
+
+
+<div class="col s12 m6 l3 red">
+    <p>s12 m6 l3</p>
 </div>
-</div></p></div>
-        <div class="col s12 m6 l3 red"><p>s12 m6 l3</p></div>
-        <div class="col s12 m6 l3 blue"><p>s12 m6 l3</p></div>
-        <div class="col s12 m6 l3 red"><p>s12 m6 l3</p></div>
-    </div>
+<div class="col s12 m6 l3 blue">
+    <p>s12 m6 l3</p>
+</div>
+<div class="col s12 m6 l3 red">
+    <p>s12 m6 l3</p>
+</div>
+</div>
 </div>
 </body>
 </html>
