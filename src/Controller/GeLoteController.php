@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Http\Exception\ForbiddenException;
-
 /**
  * GeLote Controller
  *
@@ -77,6 +76,12 @@ class GeLoteController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('O lote de produto não pode ser salvo. Por favor tente novamente!'));
+            $validationErrors = $geLote->getErrors();
+            foreach($validationErrors as $assoc) {
+                foreach ($assoc as $k => $v) {
+                    $this->Flash->error(__($v));
+                }
+            }
         }
         $this->set(compact('geLote'));
         }else {
@@ -105,6 +110,12 @@ class GeLoteController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('O lote de produto não pode se editado. Por favor tente novamente!'));
+            $validationErrors = $geLote->getErrors();
+            foreach($validationErrors as $assoc) {
+                foreach ($assoc as $k => $v) {
+                    $this->Flash->error(__($v));
+                }
+            }
         }
         $this->set(compact('geLote'));
         }else {
