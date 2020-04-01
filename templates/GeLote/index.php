@@ -5,48 +5,60 @@
  */
 ?>
 <div class="geLote index content">
-    <?= $this->Html->link(__('New Ge Lote'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Ge Lote') ?></h3>
+    <h5><b><?= __('Lotes de produtos') ?></b></h5>
     <div class="table-responsive">
-        <table>
+        <table class="striped">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('num_lote') ?></th>
-                    <th><?= $this->Paginator->sort('descricao') ?></th>
-                    <th><?= $this->Paginator->sort('data_val') ?></th>
-                    <th><?= $this->Paginator->sort('criado') ?></th>
-                    <th><?= $this->Paginator->sort('editado') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
+            <tr>
+                <th><?= $this->Paginator->sort('id') ?></th>
+                <th><?= $this->Paginator->sort('num_lote','Número do lote') ?></th>
+                <th><?= $this->Paginator->sort('data_val','data de validade') ?></th>
+                <th class="actions"><?= __('Ações') ?></th>
+            </tr>
             </thead>
             <tbody>
-                <?php foreach ($geLote as $geLote): ?>
+            <?php foreach ($geLote as $geLote): ?>
                 <tr>
-                    <td><?= $this->Number->format($geLote->id) ?></td>
+                    <td><?= h($this->Number->format($geLote->id)) ?></td>
                     <td><?= h($geLote->num_lote) ?></td>
-                    <td><?= h($geLote->descricao) ?></td>
                     <td><?= h($geLote->data_val) ?></td>
-                    <td><?= h($geLote->criado) ?></td>
-                    <td><?= h($geLote->editado) ?></td>
+
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $geLote->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $geLote->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $geLote->id], ['confirm' => __('Are you sure you want to delete # {0}?', $geLote->id)]) ?>
+                        <?= $this->Html->link('<i class="material-icons">visibility</i>',
+                            ['action' => 'view', $geLote->id],
+                            ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light']
+                        );?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+    <!-- paginação -->
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<i class="material-icons">fast_rewind</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->prev('<i class="material-icons">chevron_left</i>',
+                ['escape' => false]
+            );?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next('<i class="material-icons">chevron_right</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->last('<i class="material-icons">fast_forward</i>',
+                ['escape' => false]
+            );?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} no total')) ?></p>
     </div>
+</div>
+
+<!-- Botão flutuante novo-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">add</i>',
+        ['action' => 'add'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
+    );?>
 </div>
