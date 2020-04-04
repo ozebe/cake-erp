@@ -43,7 +43,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
-
+use Cake\Database\TypeFactory;
 /*
  * See https://github.com/josegonzalez/php-dotenv for API details.
  *
@@ -203,6 +203,9 @@ ServerRequest::addDetector('tablet', function ($request) {
 //    ->useMutable();
 // TypeFactory::build('timestamptimezone')
 //    ->useMutable();
+TypeFactory::build('date')->useImmutable()->useLocaleParser();
+TypeFactory::build('datetime')->useImmutable()->useLocaleParser();
+TypeFactory::build('timestamp')->useImmutable();
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize
