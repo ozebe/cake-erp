@@ -71,7 +71,7 @@ class GeLoteTable extends Table
             ->allowEmptyString('descricao');
 
         $validator
-            ->date('data_val')
+            ->date('data_val', ['dmy'])
             ->requirePresence('data_val', 'create')
             ->notEmptyDate('data_val');
 
