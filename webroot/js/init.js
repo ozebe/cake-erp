@@ -13,7 +13,10 @@
           showDaysInNextAndPreviousMonths: true,
           i18n: datepicker_pt_br,
           autoClose: true,
-          format: 'dd mmm, yyyy'
+          //format: 'dd mmm, yyyy'
+          //format: 'yyyy-mm-dd'
+          format: 'dd/mm/yyyy'
+          //format: 'dd/mm/yyyy'
           //outras configurações
       }
 
@@ -35,7 +38,7 @@
           instance.open();
       });
 
-      $('input#descricao, textarea#descricao, input#sigla, input#nome, input#usuario, input#codigo').characterCounter();
+      $('input#descricao, textarea#descricao, input#sigla, input#nome, input#usuario, input#codigo, input#numlote').characterCounter();
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
