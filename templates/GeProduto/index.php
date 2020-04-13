@@ -5,84 +5,62 @@
  */
 ?>
 <div class="geProduto index content">
-    <?= $this->Html->link(__('New Ge Produto'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Ge Produto') ?></h3>
+    <h5><b><?= __('Produtos') ?></b></h5>
     <div class="table-responsive">
-        <table>
+        <table class="striped">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('codigo') ?></th>
-                    <th><?= $this->Paginator->sort('descricao') ?></th>
-                    <th><?= $this->Paginator->sort('id_unid_medida') ?></th>
-                    <th><?= $this->Paginator->sort('id_unid_massa') ?></th>
-                    <th><?= $this->Paginator->sort('id_ge_sub_grupo_prod') ?></th>
-                    <th><?= $this->Paginator->sort('id_ge_estoque') ?></th>
-                    <th><?= $this->Paginator->sort('cod_barras') ?></th>
-                    <th><?= $this->Paginator->sort('ncm') ?></th>
-                    <th><?= $this->Paginator->sort('ativo') ?></th>
-                    <th><?= $this->Paginator->sort('peso_bruto') ?></th>
-                    <th><?= $this->Paginator->sort('peso_liquido') ?></th>
-                    <th><?= $this->Paginator->sort('id_ge_lote') ?></th>
-                    <th><?= $this->Paginator->sort('valor_custo') ?></th>
-                    <th><?= $this->Paginator->sort('valor_venda') ?></th>
-                    <th><?= $this->Paginator->sort('min_estoque') ?></th>
-                    <th><?= $this->Paginator->sort('max_estoque') ?></th>
-                    <th><?= $this->Paginator->sort('estoque_atual') ?></th>
-                    <th><?= $this->Paginator->sort('cor') ?></th>
-                    <th><?= $this->Paginator->sort('material') ?></th>
-                    <th><?= $this->Paginator->sort('tamanho') ?></th>
-                    <th><?= $this->Paginator->sort('tensao') ?></th>
-                    <th><?= $this->Paginator->sort('criado') ?></th>
-                    <th><?= $this->Paginator->sort('editado') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
+            <tr>
+                <th><?= $this->Paginator->sort('codigo','Código') ?></th>
+                <th><?= $this->Paginator->sort('descricao','Descrição') ?></th>
+                <th><?= $this->Paginator->sort('id_ge_grupo_prod','Subgrupo do Produto') ?></th>
+                <th><?= $this->Paginator->sort('valor_venda','Valor de venda') ?></th>
+                <th class="actions"><?= __('Ações') ?></th>
+            </tr>
             </thead>
             <tbody>
-                <?php foreach ($geProduto as $geProduto): ?>
+            <?php foreach ($geProduto as $geProduto): ?>
                 <tr>
-                    <td><?= $this->Number->format($geProduto->id) ?></td>
                     <td><?= h($geProduto->codigo) ?></td>
-                    <td><?= h($geProduto->descricao) ?></td>
-                    <td><?= $this->Number->format($geProduto->id_unid_medida) ?></td>
-                    <td><?= $this->Number->format($geProduto->id_unid_massa) ?></td>
-                    <td><?= $this->Number->format($geProduto->id_ge_sub_grupo_prod) ?></td>
-                    <td><?= $this->Number->format($geProduto->id_ge_estoque) ?></td>
-                    <td><?= h($geProduto->cod_barras) ?></td>
-                    <td><?= h($geProduto->ncm) ?></td>
-                    <td><?= h($geProduto->ativo) ?></td>
-                    <td><?= $this->Number->format($geProduto->peso_bruto) ?></td>
-                    <td><?= $this->Number->format($geProduto->peso_liquido) ?></td>
-                    <td><?= $this->Number->format($geProduto->id_ge_lote) ?></td>
-                    <td><?= $this->Number->format($geProduto->valor_custo) ?></td>
-                    <td><?= $this->Number->format($geProduto->valor_venda) ?></td>
-                    <td><?= $this->Number->format($geProduto->min_estoque) ?></td>
-                    <td><?= $this->Number->format($geProduto->max_estoque) ?></td>
-                    <td><?= $this->Number->format($geProduto->estoque_atual) ?></td>
-                    <td><?= h($geProduto->cor) ?></td>
-                    <td><?= h($geProduto->material) ?></td>
-                    <td><?= h($geProduto->tamanho) ?></td>
-                    <td><?= h($geProduto->tensao) ?></td>
-                    <td><?= h($geProduto->criado) ?></td>
-                    <td><?= h($geProduto->editado) ?></td>
+                    <td><?=$this->Text->truncate($geProduto->descricao, 22, ['ellipsis' => '...', 'exact' => true]);?></td>
+                    <td><?= h($geProduto->ge_sub_grupo_prod->descricao)?></td>
+                    <td><?= h($this->Number->currency($geProduto->valor_venda, 'BRL')) ?></td>
+
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $geProduto->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $geProduto->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $geProduto->id], ['confirm' => __('Are you sure you want to delete # {0}?', $geProduto->id)]) ?>
+                        <?= $this->Html->link('<i class="material-icons">visibility</i>',
+                            ['action' => 'view', $geProduto->id],
+                            ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light']
+                        );?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+    <!-- paginação -->
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<i class="material-icons">fast_rewind</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->prev('<i class="material-icons">chevron_left</i>',
+                ['escape' => false]
+            );?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next('<i class="material-icons">chevron_right</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->last('<i class="material-icons">fast_forward</i>',
+                ['escape' => false]
+            );?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} no total')) ?></p>
     </div>
+</div>
+
+<!-- Botão flutuante novo-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">add</i>',
+        ['action' => 'add'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
+    );?>
 </div>
