@@ -36,6 +36,8 @@ class GeEstoqueTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->hasMany('GeProduto')->setForeignKey('id_ge_estoque');
+
         $this->addBehavior('Timestamp', [
             'events' => [
                 'Model.beforeSave' => [
