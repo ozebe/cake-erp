@@ -43,6 +43,7 @@ $cakeDescription = 'CakeERP';
 
     <?= $this->Html->script('jquery-3.4.1.min.js'); ?>
     <?= $this->Html->script('materialize.min.js'); ?>
+    <?= $this->Html->script('jquery.mask.min'); ?>
     <?= $this->Html->script('init.js'); ?>
 
     <?= $this->fetch('meta') ?>
@@ -135,6 +136,12 @@ $cakeDescription = 'CakeERP';
             ['escape' => false]
         );?>
     </li>
+    <li>
+        <?= $this->Html->link('Produtos<i class="material-icons">shopping_cart</i>',
+            ['controller' => 'GeProduto', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
 </ul>
 <!----------------------------------->
 
@@ -155,6 +162,12 @@ $cakeDescription = 'CakeERP';
     <li>
         <?= $this->Html->link('Lotes de produtos<i class="material-icons">reorder</i>',
             ['controller' => 'GeLote', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
+    <li>
+        <?= $this->Html->link('Produtos<i class="material-icons">shopping_cart</i>',
+            ['controller' => 'GeProduto', 'action' => 'index'],
             ['escape' => false]
         );?>
     </li>
