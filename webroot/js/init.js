@@ -4,7 +4,8 @@
       $(".dropdown-trigger").dropdown();
       $('.fixed-action-btn').floatingActionButton({hoverEnabled: false});
       $('select').formSelect();
-
+      $('.money').mask('#,##0.00', {reverse: true});
+      // $('.money').mask('#.##0,00', {reverse: true});
       var datepicker_pt_br = {
           cancel: 'Cancelar', today: 'Hoje', clear: 'Limpar', done: 'Ok', nextMonth: 'Próximo mês', previousMonth: 'Mês anterior', weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'], weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'], weekdays: ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'], monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'], months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
       }
@@ -38,7 +39,7 @@
           instance.open();
       });
 
-      $('input#descricao, textarea#descricao, input#sigla, input#nome, input#usuario, input#codigo, input#numlote').characterCounter();
+      $('input#descricao, textarea#descricao, input#sigla, input#nome, input#usuario, input#codigo, input#numlote, input#codBarra, input#pBruto, input#pLiquido, input#ncm, input#valCusto, input#valVenda, input#minEstoque, input#maxEstoque, input#estoqueAtual').characterCounter();
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
