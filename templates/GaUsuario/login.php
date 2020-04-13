@@ -15,12 +15,12 @@
 
             echo '<div class="input-field">';
             echo $this->Form->text('usuario', array("id" =>"usuario"));
-            echo '<label for="usuario">';echo $this->Form->label("usuario", "Usuário");echo '</label>';
+            echo '<label for="usuario">Usuário</label>';
             echo '</div>';
 
             echo '<div class="input-field">';
             echo $this->Form->password('senha', array("id" =>"senha"));
-            echo '<label for="senha">';echo $this->Form->label("senha", "Senha");echo '</label>';
+            echo '<label for="senha">Senha</label>';
             echo '</div>';
 
             echo '<br>';
