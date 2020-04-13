@@ -35,6 +35,30 @@ class GeProdutoTable extends Table
         $this->setTable('ge_produto');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('GeUnidadeMedida')
+            ->setForeignKey('id_unid_medida');
+
+        $this->belongsTo('GeUnidadeMassa')
+            ->setForeignKey('id_unid_massa');
+
+        $this->belongsTo('GeSubGrupoProd')
+            ->setForeignKey('id_ge_sub_grupo_prod');
+
+        $this->belongsTo('GeEstoque')
+            ->setForeignKey('id_ge_estoque');
+
+        $this->belongsTo('GeLote')
+            ->setForeignKey('id_ge_lote');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'criado' => 'new',
+                    'editado' => 'always',
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -54,7 +78,7 @@ class GeProdutoTable extends Table
             ->maxLength('codigo', 30)
             ->requirePresence('codigo', 'create')
             ->notEmptyString('codigo')
-            ->add('codigo', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('codigo', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message' => 'Já existe um cadastro com esse código']);
 
         $validator
             ->scalar('descricao')
@@ -96,10 +120,12 @@ class GeProdutoTable extends Table
 
         $validator
             ->decimal('peso_bruto')
+            ->minLength('peso_bruto', 0, 'O peso bruto não pode ser menor que zero')
             ->allowEmptyString('peso_bruto');
 
         $validator
             ->decimal('peso_liquido')
+            ->minLength('peso_liquido', 0, 'O peso líquido não pode ser menor que zero')
             ->allowEmptyString('peso_liquido');
 
         $validator
@@ -108,14 +134,17 @@ class GeProdutoTable extends Table
 
         $validator
             ->decimal('valor_custo')
+            ->minLength('valor_custo', 0, 'O valor de custo não pode ser menor que zero')
             ->allowEmptyString('valor_custo');
 
         $validator
             ->decimal('valor_venda')
+            ->minLength('valor_venda', 0, 'O valor de venda não pode ser menor que zero')
             ->allowEmptyString('valor_venda');
 
         $validator
             ->decimal('min_estoque')
+            ->minLength('min_estoque', 0, 'O estoque mínimo não pode ser menor que zero')
             ->requirePresence('min_estoque', 'create')
             ->notEmptyString('min_estoque');
 
@@ -125,6 +154,7 @@ class GeProdutoTable extends Table
 
         $validator
             ->decimal('estoque_atual')
+            ->minLength('estoque_atual', 0, 'O estoque atual não pode ser menor que zero')
             ->allowEmptyString('estoque_atual');
 
         $validator
@@ -147,14 +177,6 @@ class GeProdutoTable extends Table
             ->maxLength('tensao', 6)
             ->allowEmptyString('tensao');
 
-        $validator
-            ->dateTime('criado')
-            ->requirePresence('criado', 'create')
-            ->notEmptyDateTime('criado');
-
-        $validator
-            ->dateTime('editado')
-            ->allowEmptyDateTime('editado');
 
         return $validator;
     }
