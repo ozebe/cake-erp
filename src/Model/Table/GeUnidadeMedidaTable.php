@@ -36,6 +36,9 @@ class GeUnidadeMedidaTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->hasMany('GeProduto', [
+        ])->setForeignKey('id_unid_medida');
+
         $this->addBehavior('Timestamp', [
             'events' => [
                 'Model.beforeSave' => [

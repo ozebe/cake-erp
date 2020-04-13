@@ -36,6 +36,8 @@ class GeLoteTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->hasMany('GeProduto')->setForeignKey('id_ge_lote');
+
         $this->addBehavior('Timestamp', [
             'events' => [
                 'Model.beforeSave' => [

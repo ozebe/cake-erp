@@ -39,6 +39,8 @@ class GeSubGrupoProdTable extends Table
         $this->belongsTo('GeGrupoProd')
             ->setForeignKey('id_ge_grupo_prod');
 
+        $this->hasMany('GeProduto')->setForeignKey('id_ge_sub_grupo_prod');
+
         $this->addBehavior('Timestamp', [
             'events' => [
                 'Model.beforeSave' => [

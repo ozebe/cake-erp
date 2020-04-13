@@ -36,6 +36,8 @@ class GeUnidadeMassaTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->hasMany('GeProduto')->setForeignKey('id_unid_massa');
+
         $this->addBehavior('Timestamp', [
             'events' => [
                 'Model.beforeSave' => [
