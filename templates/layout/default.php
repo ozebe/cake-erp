@@ -235,7 +235,11 @@ $cakeDescription = 'CakeERP';
 
             }elseif($niveis->ga_nivel_acesso->sigla == "GE"){
                 echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ge"><i class="material-icons">store</i>Gestão de estoque</a></li>';
+
+            }elseif($niveis->ga_nivel_acesso->sigla == "GRH"){
+                echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-rh"><i class="material-icons">store</i>Gestão de RH</a></li>';
             }
+
         }
         echo '<li><div class="divider"></div></li>';
 
