@@ -174,6 +174,29 @@ $cakeDescription = 'CakeERP';
 </ul>
 <!----------------------------------->
 
+<!-- Dropdown Recursos Humanos administrador-->
+<ul id='dropdown-rh-adm' class='dropdown-content'>
+    <li>
+        <?= $this->Html->link('Áreas de profissão<i class="material-icons">book</i>',
+            ['controller' => 'RhAreaProfissao', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
+</ul>
+<!----------------------------------->
+
+
+<!-- Dropdown Recursos Humanos-->
+<ul id='dropdown-rh' class='dropdown-content'>
+    <li>
+        <?= $this->Html->link('Áreas de profissão<i class="material-icons">book</i>',
+            ['controller' => 'RhAreaProfissao', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
+</ul>
+<!----------------------------------->
+
 <!--NAV BAR COM SLIDE-->
 <ul id="slide-out" class="sidenav">
     <li><div class="user-view">
@@ -203,6 +226,7 @@ $cakeDescription = 'CakeERP';
             if($niveis->ga_nivel_acesso->sigla == "ADM"){
                 echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ga-adm"><i class="material-icons">group</i>Gestão de acesso</a></li>';
                 echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-ge-adm"><i class="material-icons">store</i>Gestão de estoque</a></li>';
+                echo '<li><a class="dropdown-trigger" href="#!" data-target="dropdown-rh-adm"><i class="material-icons">person</i>Gestão de RH</a></li>';
 
                 break;
              //se o usuário estiver no gestão de acesso
