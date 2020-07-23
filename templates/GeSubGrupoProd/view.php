@@ -2,7 +2,7 @@
 
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\GeGrupoProd $geSubGrupoProd
+ * @var \App\Model\Entity\GeSubGrupoProd $geSubGrupoProd
  */
 ?>
 <div class="row">
