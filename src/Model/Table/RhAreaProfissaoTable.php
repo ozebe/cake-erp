@@ -44,6 +44,12 @@ class RhAreaProfissaoTable extends Table
                 ]
             ]
         ]);
+
+        $this->hasMany('RhTipoProfissao', [
+            'dependent' => true,
+            'cascadeCallbacks' => true,
+        ])
+            ->setForeignKey('rh_area_prof_id');
     }
 
     /**

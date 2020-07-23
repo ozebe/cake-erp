@@ -38,9 +38,16 @@ class RhTipoProfissaoTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('RhAreaProfissao', [
-            'foreignKey' => 'rh_area_prof_id',
-            'joinType' => 'INNER',
+        $this->belongsTo('RhAreaProfissao')
+            ->setForeignKey('rh_area_prof_id');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'criado' => 'new',
+                    'editado' => 'always',
+                ]
+            ]
         ]);
     }
 
@@ -60,16 +67,8 @@ class RhTipoProfissaoTable extends Table
             ->scalar('descricao')
             ->maxLength('descricao', 255)
             ->requirePresence('descricao', 'create')
-            ->notEmptyString('descricao');
-
-        $validator
-            ->dateTime('criado')
-            ->requirePresence('criado', 'create')
-            ->notEmptyDateTime('criado');
-
-        $validator
-            ->dateTime('editado')
-            ->allowEmptyDateTime('editado');
+            ->notEmptyString('descricao')
+            ->add('descricao', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message' => 'Já existe um cadastro com essa descrição!']);
 
         return $validator;
     }
