@@ -182,6 +182,12 @@ $cakeDescription = 'CakeERP';
             ['escape' => false]
         );?>
     </li>
+    <li>
+        <?= $this->Html->link('Tipos de profissão<i class="material-icons">bookmark</i>',
+            ['controller' => 'RhTipoProfissao', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
 </ul>
 <!----------------------------------->
 
@@ -191,6 +197,12 @@ $cakeDescription = 'CakeERP';
     <li>
         <?= $this->Html->link('Áreas de profissão<i class="material-icons">book</i>',
             ['controller' => 'RhAreaProfissao', 'action' => 'index'],
+            ['escape' => false]
+        );?>
+    </li>
+    <li>
+        <?= $this->Html->link('Tipos de profissão<i class="material-icons">bookmark</i>',
+            ['controller' => 'RhTipoProfissao', 'action' => 'index'],
             ['escape' => false]
         );?>
     </li>
