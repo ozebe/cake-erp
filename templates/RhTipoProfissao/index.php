@@ -5,46 +5,58 @@
  */
 ?>
 <div class="rhTipoProfissao index content">
-    <?= $this->Html->link(__('New Rh Tipo Profissao'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Rh Tipo Profissao') ?></h3>
+    <h5><b><?= __('Tipos de profissões') ?></b></h5>
     <div class="table-responsive">
-        <table>
+        <table class="striped">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('rh_area_prof_id') ?></th>
-                    <th><?= $this->Paginator->sort('descricao') ?></th>
-                    <th><?= $this->Paginator->sort('criado') ?></th>
-                    <th><?= $this->Paginator->sort('editado') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
+            <tr>
+                <th><?= $this->Paginator->sort('descricao','Descrição') ?></th>
+                <th><?= $this->Paginator->sort('rh_area_prof_id','Área da profissão') ?></th>
+                <th class="actions"><?= __('Ações') ?></th>
+            </tr>
             </thead>
             <tbody>
-                <?php foreach ($rhTipoProfissao as $rhTipoProfissao): ?>
+            <?php foreach ($rhTipoProfissao as $rhTipoProfissao): ?>
                 <tr>
-                    <td><?= $this->Number->format($rhTipoProfissao->id) ?></td>
-                    <td><?= $rhTipoProfissao->has('rh_area_profissao') ? $this->Html->link($rhTipoProfissao->rh_area_profissao->id, ['controller' => 'RhAreaProfissao', 'action' => 'view', $rhTipoProfissao->rh_area_profissao->id]) : '' ?></td>
                     <td><?= h($rhTipoProfissao->descricao) ?></td>
-                    <td><?= h($rhTipoProfissao->criado) ?></td>
-                    <td><?= h($rhTipoProfissao->editado) ?></td>
+                    <td><?= h($rhTipoProfissao->rh_area_profissao->descricao)?></td>
+
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $rhTipoProfissao->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $rhTipoProfissao->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $rhTipoProfissao->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rhTipoProfissao->id)]) ?>
+                        <?= $this->Html->link('<i class="material-icons">visibility</i>',
+                            ['action' => 'view', $rhTipoProfissao->id],
+                            ['escape' => false, 'class' => 'btn-floating btn-small waves-effect waves-light']
+                        );?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+    <!-- paginação -->
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<i class="material-icons">fast_rewind</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->prev('<i class="material-icons">chevron_left</i>',
+                ['escape' => false]
+            );?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next('<i class="material-icons">chevron_right</i>',
+                ['escape' => false]
+            );?>
+            <?= $this->Paginator->last('<i class="material-icons">fast_forward</i>',
+                ['escape' => false]
+            );?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, mostrando {{current}} registro(s) de {{count}} no total')) ?></p>
     </div>
+</div>
+
+<!-- Botão flutuante novo-->
+<div class="fixed-action-btn horizontal">
+    <?= $this->Html->link('<i class="material-icons">add</i>',
+        ['action' => 'add'],
+        ['escape' => false, 'class' => 'btn-floating btn-large waves-effect waves-light']
+    );?>
 </div>
